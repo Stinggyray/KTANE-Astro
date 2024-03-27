@@ -22,7 +22,7 @@ const MainPage = () => {
 		window.localStorage.setItem("view", toSet);
 	};
 	const [optimized, setRawOptimized] = useState(
-		window.localStorage.getItem("optimized") === "true"
+		(window.localStorage.getItem("optimized") ?? "true") === "true"
 	);
 	const setOptimized = (toSet: boolean) => {
 		setRawOptimized(toSet);
