@@ -4,5 +4,6 @@
   "useTabs": true,
   "semi": true,
   "singleQuote": false,
-  "printWidth": 80
+  "printWidth": 80,
+  "quoteProps": "consistent"
 }

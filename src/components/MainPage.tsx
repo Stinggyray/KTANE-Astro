@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import profiles, { names } from "../json/profiles.ts";
 import phrases from "../json/phrases.json";
@@ -6,13 +6,15 @@ import ModuleList from "./ModuleList.tsx";
 
 const MainPage = () => {
 	const phraseCount = phrases.length;
-	const [phrase, setPhrase] = useState(
-		phrases[Math.floor(Math.random() * phraseCount)]
-	);
+	const [phrase, setPhrase] = useState("Loading your mother...");
 	const [activeUser, setActiveUser] = useState("Sting");
 	const [view, setView] = useState("compact");
 	const [optimized, setOptimized] = useState(true);
 	const [linksInNewTab, setLinksInNewTab] = useState(true);
+
+	useEffect(() => {
+		setPhrase(phrases[Math.floor(Math.random() * phraseCount)]);
+	}, []);
 
 	return (
 		<>
