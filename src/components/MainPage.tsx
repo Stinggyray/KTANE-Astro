@@ -1,19 +1,43 @@
 import { useEffect, useState } from "react";
 
 import profiles, { names } from "../json/profiles.ts";
-import phrases from "../json/phrases.json";
+import splashes from "../json/splashes.json";
 import ModuleList from "./ModuleList.tsx";
 
 const MainPage = () => {
-	const phraseCount = phrases.length;
-	const [phrase, setPhrase] = useState("");
-	const [activeUser, setActiveUser] = useState("Sting");
-	const [view, setView] = useState("compact");
-	const [optimized, setOptimized] = useState(true);
-	const [linksInNewTab, setLinksInNewTab] = useState(true);
+	const splashCount = splashes.length;
+	const [splashText, setSplashText] = useState("");
+	const [activeUser, setRawActiveUser] = useState(
+		window.localStorage.getItem("activeUser") || "Sting"
+	);
+	const setActiveUser = (toSet: string) => {
+		setRawActiveUser(toSet);
+		window.localStorage.setItem("activeUser", toSet);
+	};
+	const [view, setRawView] = useState(
+		window.localStorage.getItem("view") || "compact"
+	);
+	const setView = (toSet: string) => {
+		setRawView(toSet);
+		window.localStorage.setItem("view", toSet);
+	};
+	const [optimized, setRawOptimized] = useState(
+		window.localStorage.getItem("optimized") === "true"
+	);
+	const setOptimized = (toSet: boolean) => {
+		setRawOptimized(toSet);
+		window.localStorage.setItem("optimized", toSet.toString());
+	};
+	const [linksInNewTab, setRawLinksInNewTab] = useState(
+		window.localStorage.getItem("linksInNewTab") === "true"
+	);
+	const setLinksInNewTab = (toSet: boolean) => {
+		setRawLinksInNewTab(toSet);
+		window.localStorage.setItem("linksInNewTab", toSet.toString());
+	};
 
 	useEffect(() => {
-		setPhrase(phrases[Math.floor(Math.random() * phraseCount)]);
+		setSplashText(splashes[Math.floor(Math.random() * splashCount)]);
 	}, []);
 
 	return (
@@ -29,7 +53,7 @@ const MainPage = () => {
 						<p
 							className="text-white self-end overflow-wrap w-80 flex-grow leading-snug"
 							dangerouslySetInnerHTML={{
-								__html: phrase,
+								__html: splashText,
 							}}
 						></p>
 					</div>

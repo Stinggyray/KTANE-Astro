@@ -15,7 +15,14 @@ const ModuleList = (props: Props) => {
 	const { name, profile: initialProfile, gradient } = props.profile;
 
 	const [query, setQuery] = useState("");
-	const [centurion, setCenturion] = useState(false);
+	const [centurion, setRawCenturion] = useState(
+		window.localStorage.getItem("centurion") === "true"
+	);
+
+	const setCenturion = (toSet: boolean) => {
+		window.localStorage.setItem("centurion", toSet.toString());
+		setRawCenturion(toSet);
+	};
 
 	const [showGlobalSearch, setShowGlobalSearch] = useState(false);
 
@@ -113,6 +120,9 @@ const ModuleList = (props: Props) => {
 									/>
 									<a
 										href={`/${optimized ? module.manualLink : module.originalManualLink}.html`}
+										target={
+											linksInNewTab ? "_blank" : "_self"
+										}
 										className={`page-link font-medium ${
 											module.manualLink ===
 												module.originalManualLink ||

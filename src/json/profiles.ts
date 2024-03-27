@@ -129,6 +129,7 @@ const stingAltManuals: Record<string, string> = {};
 const yoshiAltManuals: Record<string, string> = {
 	"Perplexing Wires": "Perplexing Wires",
 	"Piano Keys": "Piano Keys condensed (LeGeND)",
+	"Logic": "Logic optimized (LeGeND)",
 };
 const emmaAltManuals: Record<string, string> = {};
 const psAltManuals: Record<string, string> = {};
