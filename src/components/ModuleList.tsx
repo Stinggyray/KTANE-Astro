@@ -43,7 +43,7 @@ const ModuleList = (props: Props) => {
 			>
 				<h1 className="text-2xl font-semibold">{name}</h1>
 				<p className="text-lg font-normal" id="shown-length">
-					{profile.length} modules
+					{profile.length} module{profile.length === 1 ? "" : "s"}
 				</p>
 			</div>
 			<div
