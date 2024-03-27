@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Logic — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .flex-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .flex-container {
+            flex: auto;
+            min-width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Logic</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Logic.svg" class="diagram">
+                <h2>On the Subject of Limiting Logic</h2>
+                <p class="flavour-text">
+                    The logical conclusion of all the Logic manual pages.
+                </p>
+                <table>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Gate</th>
+                        <th>Symbol</th>
+                        <th>Statement</th>
+                    </tr>
+                    <tr>
+                        <td>∧</td>
+                        <td>AND (both true)</td>
+                        <td>↓</td>
+                        <td>NOR (both false)</td>
+                    </tr>
+                    <tr>
+                        <td>∨</td>
+                        <td>OR (at least 1 is true)</td>
+                        <td>↔</td>
+                        <td>XNOR (both the same)</td>
+                    </tr>
+                    <tr>
+                        <td>⊻</td>
+                        <td>XOR (both different)</td>
+                        <td>→</td>
+                        <td>Implies (NOT left true + right false)</td>
+                    </tr>
+                    <tr>
+                        <td>|</td>
+                        <td>NAND (NOT both true)</td>
+                        <td>←</td>
+                        <td>Implies (NOT right true + left false)</td>
+                    </tr>
+                </table>
+                <div class="flex-wrapper">
+                    <div class="flex-container">
+                        <h4>Batteries (A G H J N U)</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Letter(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0-1 batteries</td>
+                                    <td>H</td>
+                                </tr>
+                                <tr>
+                                    <td>2-4 batteries</td>
+                                    <td>G</td>
+                                </tr>
+                                <tr>
+                                    <td>5+ batteries</td>
+                                    <td>G<br>J</td>
+                                </tr>
+                                <tr>
+                                    <td>1 holder</td>
+                                    <td>U</td>
+                                </tr>
+                                <tr>
+                                    <td>3+ holders</td>
+                                    <td>N</td>
+                                </tr>
+                                <tr>
+                                    <td>batteries = indicators</td>
+                                    <td>A</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex-container">
+                        <h4>Ports (F M P Q R Y Z)</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Letter(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0-1 ports</td>
+                                    <td>Z</td>
+                                </tr>
+                                <tr>
+                                    <td>2 ports</td>
+                                    <td>Q</td>
+                                </tr>
+                                <tr>
+                                    <td>6+ ports</td>
+                                    <td>Y</td>
+                                </tr>
+                                <tr>
+                                    <td>2+ port types</td>
+                                    <td>F</td>
+                                </tr>
+                                <tr>
+                                    <td>all unique ports</td>
+                                    <td>M</td>
+                                </tr>
+                                <tr>
+                                    <td>Parallel</td>
+                                    <td>P</td>
+                                </tr>
+                                <tr>
+                                    <td>PS/2</td>
+                                    <td>R</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex-container">
+                        <h4>Indicators (C D E K L O T W X)</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Letter(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0 total ind.</td>
+                                    <td>W</td>
+                                </tr>
+                                <tr>
+                                    <td>1 total ind.</td>
+                                    <td>X</td>
+                                </tr>
+                                <tr>
+                                    <td>3+ total ind.</td>
+                                    <td>L</td>
+                                </tr>
+                                <tr>
+                                    <td>1 lit ind.</td>
+                                    <td>K</td>
+                                </tr>
+                                <tr>
+                                    <td>1 unlit ind.</td>
+                                    <td>E</td>
+                                </tr>
+                                <tr>
+                                    <td>lit and unlit ind.</td>
+                                    <td>O</td>
+                                </tr>
+                                <tr>
+                                    <td>"IND"</td>
+                                    <td>C</td>
+                                </tr>
+                                <tr>
+                                    <td>"FRK"</td>
+                                    <td>D</td>
+                                </tr>
+                                <tr>
+                                    <td>"MSA"</td>
+                                    <td>T</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex-container">
+                        <h4>Serial Number (B I S V)</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Letter(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>letters &gt; numbers</td>
+                                    <td>B</td>
+                                </tr>
+                                <tr>
+                                    <td>last digit is odd</td>
+                                    <td>I</td>
+                                </tr>
+                                <tr>
+                                    <td>sum of digits &gt; 10</td>
+                                    <td>S</td>
+                                </tr>
+                                <tr>
+                                    <td>vowel</td>
+                                    <td>V</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

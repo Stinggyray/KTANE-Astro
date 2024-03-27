@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Piano Keys — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        @font-face {
+            font-family: 'OpusStd';
+            src: url('font/OpusStd.otf');
+        }
+
+        @font-face {
+            font-family: 'OpusChordsSansStd';
+            src: url('font/OpusChordsSansStd.otf');
+        }
+
+        table.piano-keys td:first-child, table.piano-keys th:first-child {
+            white-space: nowrap;
+        }
+
+        .music-symbol {
+            font-family: 'OpusStd';
+            font-size: 1.6em;
+            position: relative;
+            top: -0.2em;
+        }
+
+        .music-chord {
+            font-family: 'OpusChordsSansStd';
+            word-spacing: 0.3em;
+            white-space: nowrap;
+        }
+
+        .no-requirement {
+            font-style: italic;
+        }
+
+        .hardmodule-wrap {
+            position: relative;
+            width: 0px;
+            height: 0px;
+        }
+
+        .hardmodule {
+            position: relative;
+            width: 2em;
+            height: 66em;
+            opacity: 0.3;
+            background-color: #FF0000;
+            -webkit-print-color-adjust: exact;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Piano Keys</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Piano Keys.svg" class="diagram" />
+                <h2>On the Subject of Piano Keys</h2>
+                <p class="flavour-text">
+                    What do you get when you drop a piano down a mine shaft? A flat minor.
+                </p>
+                <p class="appendix-reference">
+                    See Appendix A for indicator identification reference.<br /> See Appendix B for battery identification
+                    reference.<br /> See Appendix C for port identification reference.<br /> See the next page for piano/keyboard
+                    reference.
+                </p>
+                <ul>
+                    <li>A piano keys module will present with 3 musical symbols in the top indicator and a 12-note keyboard to
+                        input with.</li>
+                    <li>Each rule consists of one or more required symbol(s) and optional further requirements based on the bomb
+                        casing.</li>
+                    <li>Follow the list of rules down until one matches the criteria for the module; then execute the sequence
+                        of notes listed.</li>
+                    <li>A failed attempt will require re-entry of the entire note sequence.</li>
+                </ul>
+
+                <table class='piano-keys'>
+                    <thead>
+                        <tr>
+                            <th><em>Required Symbol(s)</em></th>
+                            <th><em>Further Requirements</em></th>
+                            <th><em>Note Sequence</em>, <em>Song</em></th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><span class="music-symbol">b</span></td>
+                        <td>Last digit of serial number is even</td>
+                        <td><div class="music-chord">Bb Bb Bb Bb Gb Ab Bb Ab Bb</div><div class='song-name'>Final Fantasy</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">c</span> or <span class="music-symbol">#</span></td>
+                        <td>2 or more battery holders</td>
+                        <td><div class="music-chord">Eb Eb D D Eb Eb D Eb Eb D D Eb</div><div class='song-name'>Guiles Theme</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">n</span> <strong>and</strong> <span class="music-symbol">U</span></td>
+                        <td><span class="no-requirement">(No other requirements)</span></td>
+                        <td><div class="music-chord">E F# F# F# F# E E E</div><div class='song-name'>James Bond</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">C</span> or <span class="music-symbol">T</span></td>
+                        <td>RCA port is present</td>
+                        <td><div class="music-chord">Bb A Bb F Eb Bb A Bb F Eb</div><div class='song-name'>Jurassic Park</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">B</span></td>
+                        <td>SND indicator is present and lit</td>
+                        <td><div class="music-chord">E E E C E G G</div><div class='song-name'>Super Mario</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">m</span> or <span class="music-symbol">U</span> or <span class="music-symbol">c</span></td>
+                        <td>3 or more batteries</td>
+                        <td><div class="music-chord">C# D E F C# D E F Bb A</div><div class='song-name'>Pink Panther</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">b</span> <strong>and</strong> <span class="music-symbol">#</span></td>
+                        <td><span class="no-requirement">(No other requirements)</span></td>
+                        <td><div class="music-chord">G G C G G C G C</div><div class='song-name'>Superman</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">C</span> or <span class="music-symbol">m</span></td>
+                        <td>Serial number contains a 3, 7 or 8</td>
+                        <td><div class="music-chord">A E F G F E D D F A</div><div class='song-name'>Tetris Theme A</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="music-symbol">n</span> or <span class="music-symbol">T</span> or <span class="music-symbol">B</span></td>
+                        <td><span class="no-requirement">(No other requirements)</span></td>
+                        <td><div class="music-chord">G G G Eb Bb G Eb Bb G</div><div class='song-name'>Empire Strikes Back</div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="no-requirement">(No requirement)</span></td>
+                        <td><span class="no-requirement">(No other requirements)</span></td>
+                        <td><div class="music-chord">B D A G A B D A</div><div class='song-name'>Zelda's Lullaby</div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Piano Keys</span>
+            </div>
+            <div class="page-content">
+                <h3>Piano/Keyboard Reference</h3>
+                <p>
+                    Use the following graphic as a reference to how tones are mapped onto a standard 12-note piano/keyboard.
+                </p>
+                <img src="img/Piano Keys/Piano.png" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Simon Screams — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <script src='js/ruleseed.js'></script>
+    <style>
+        table.simon-screams, table.simon-screams table {
+            border: none;
+        }
+        table.simon-screams td.corner, table.simon-screams th.corner {
+            border: none;
+        }
+        table.simon-screams td {
+            text-align: center;
+        }
+        table.simon-screams th {
+            text-align: right;
+        }
+        table.simon-screams th.little {
+            text-align: left;
+        }
+        table.simon-screams tr.top > th {
+            text-align: center;
+            vertical-align: bottom;
+        }
+        table.simon-screams tr.top > th > p {
+            margin: .25em;
+        }
+        table.simon-screams tr.rotated > th {
+            position: relative;
+            text-align: left;
+            height: 4em;
+        }
+        table.simon-screams tr.rotated > th > span.text {
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%) rotate(-50deg);
+            transform-origin: middle center;
+            text-align: center;
+            line-height: 1.25;
+        }
+        p.inner {
+            font-size: 10pt;
+        }
+        p.footnote {
+            font-size: 12pt;
+            text-align: right;
+        }
+
+        .letters td:nth-child(2), .rotated th:nth-child(1), .red {
+            background-color: rgba(255, 0, 0, 0.3);
+        }
+
+        .letters td:nth-child(3), .rotated th:nth-child(2), .orange {
+            background-color: rgba(255, 127, 0, 0.3);
+        }
+
+        .letters td:nth-child(4), .rotated th:nth-child(3), .yellow {
+            background-color: rgba(255, 255, 0, 0.3);
+        }
+
+        .letters td:nth-child(5), .rotated th:nth-child(4), .green {
+            background-color: rgba(0, 255, 0, 0.3);
+        }
+
+        .letters td:nth-child(6), .rotated th:nth-child(5), .blue {
+            background-color: rgba(0, 0, 255, 0.2);
+        }
+
+        .letters td:nth-child(7), .rotated th:nth-child(6), .purple {
+            background-color: rgba(255, 0, 255, 0.3);
+        }
+    </style>
+    <script>
+        var _rules = [
+            { prob:  50, name: "All at least once" },
+            { prob: 120, name: "3 colors, each 2 apart, clockwise" },
+            { prob: 220, name: "a color, then an adjacent, then the 1st" },
+            { prob: 121, name: "3 counter-clockwise" },
+            { prob: 122, name: "3 clockwise" },
+            { prob: 123, name: "A color, 1 opposite, then the 1st" },
+            { prob: 100, name: "3 adjacent colors did not flash" },
+            { prob: 170, name: "First and last are the same" },
+            { prob: 124, name: "3 colors, each 2 apart, flashed counter-clockwise" },
+            { prob: 230, name: "A color, then 2 away, then the 1st" },
+            { prob: 260, name: "A color, then 1 adjacent, then the 1 opposite that" },
+            { prob: 261, name: "A color, then 1 adjacent, then the 1 opposite the 1st" },
+            { prob: 262, name: "A color, then 2 away, then the 1 opposite that" },
+            { prob: 263, name: "A color, then 2 away, then the 1 opposite the 1st" },
+            { prob: 231, name: c => `At most 1 out of ${c[0]}, ${c[1]}, and ${c[2]}` },
+            { prob: 264, name: "A color, then the 1 opposite, then 1 adjacent to the 1st" },
+            { prob: 221, name: "None more than once" },
+            { prob: 265, name: "A color, then the 1 opposite, then 1 adjacent to that" },
+            { prob: 240, name: "Exactly 2 exactly twice" },
+            { prob: 420, name: "2 adjacent to each other that didn’t flash" },
+            { prob: 270, name: "There is exactly 1 color that didn’t flash" },
+            { prob: 280, name: "None exactly twice" },
+            { prob: 290, name: "There are at least 3 colors that didn’t flash" },
+            { prob: 300, name: "Exactly 2 more than once" },
+            { prob: 330, name: "First and last are adjacent" },
+            { prob: 380, name: "Exactly 1 color more than once" },
+            { prob: 440, name: "2, 2 away from each other that didn’t flash" },
+            { prob: 266, name: "2 opposite didn’t flash" },
+            { prob: 400, name: "There are exactly 2 that didn’t flash" },
+            { prob: 410, name: "Exactly 1 color flashed exactly twice" },
+            { prob: 480, name: "The number of distinct is even" },
+            { prob: 390, name: "No 2 clockwise" },
+            { prob: 391, name: "No 2 counter-clockwise" },
+            { prob: 610, name: "2 clockwise" },
+            { prob: 392, name: "No 2 colors 2 apart flashed counter-clockwise" },
+            { prob: 500, name: "First and last are different and not adjacent" },
+            { prob: 520, name: "A color, then another color, then the 1st" },
+            { prob: 393, name: "No 2 colors 2 apart flashed clockwise" },
+            { prob: 611, name: "2 adjacent colors flashed counter-clockwise" },
+            { prob: 612, name: "2 colors 2 apart flashed clockwise" },
+            { prob: 613, name: "2 colors 2 apart flashed counter-clockwise" },
+            { prob: 521, name: "The number of distinct is odd" },
+            { prob: 770, name: c => `At least 2 out of ${c[0]}, ${c[1]}, and ${c[2]}` }];
+        
+        function setDefaultRules(rnd) { setRules(rnd); }
+
+        function setRules(rnd)
+        {
+            var steps = rnd.next(0, 25);
+            for (var i = 0; i < steps; i++)
+                rnd.nextDouble();
+
+            var rules = _rules.slice(0);
+            rnd.shuffleFisherYates(rules);
+            var ths = document.getElementsByClassName('row-rule');
+            rules = rules.slice(0, ths.length);
+            rules.sort((a, b) => a.prob < b.prob ? -1 : a.prob > b.prob ? 1 : 0);
+            for (var i = 0; i < ths.length; i++)
+            {
+                var name = rules[i].name;
+                if (typeof rules[i].name === 'function')
+                {
+                    var colors = 'O,Y,R,G,B,P'.split(',');
+                    rnd.shuffleFisherYates(colors);
+                    name = rules[i].name(colors);
+                }
+                /*
+                ths[i].innerText = name;
+                */
+            }
+
+            var gt = rnd.next(0, 2);
+            document.getElementsByClassName("inequality")[0].innerText = `${gt ? '≥' : '≤'} 3`;
+
+            var condThs = document.getElementsByClassName('little');
+            var conds = ['Ports', 'Ind.', 'Bat.', 'Dig. in #', 'Let. in #', 'Bat. hold'];
+            rnd.shuffleFisherYates(conds);
+            for (var i = 0; i < 6; i++)
+                condThs[i].innerText = conds[i];
+
+            var sts = [0, 1, 2];
+            var grid = [
+                "FFC,CEH,HAF,ECD,DDE,AHA".split(','),
+                "AHF,DFC,ECH,CDE,FEA,HAD".split(','),
+                "DED,ECF,FHE,HAA,AFH,CDC".split(','),
+                "HCE,ADA,CFD,DHH,EAC,FEF".split(','),
+                "CAH,FHD,DDA,AEC,HCF,EFE".split(','),
+                "EDA,HAE,AEC,FFF,CHD,DCH".split(',')];
+            var smallGrid = [
+                "YOGRBP",
+                "PYRBOG",
+                "OGBPRY",
+                "GBOYPR",
+                "RPYOGB",
+                "BRPGYO"];
+
+            if (rnd.seed != 1)
+            {
+                sts[0] = rnd.next(0, 3);
+                sts[1] = rnd.next(sts[0] + 1, 4);
+                sts[2] = rnd.next(sts[1] + 1, 5);
+
+                var numbers = [];
+                for (var i = 0; i < 6; i++)
+                    numbers.push(i);
+
+                var columnShuffle1 = rnd.shuffleFisherYates(numbers.slice(0));
+                var columnShuffle2 = rnd.shuffleFisherYates(numbers.slice(0));
+                var columnShuffle3 = rnd.shuffleFisherYates(numbers.slice(0));
+                var columnShuffle = [columnShuffle1, columnShuffle2, columnShuffle3];
+
+                var rowShuffle1 = rnd.shuffleFisherYates(numbers.slice(0));
+                var rowShuffle2 = rnd.shuffleFisherYates(numbers.slice(0));
+                var rowShuffle3 = rnd.shuffleFisherYates(numbers);
+                var rowShuffle = [rowShuffle1, rowShuffle2, rowShuffle3];
+
+                var newGrid = grid.map(arr => arr.slice(0));
+                for (var r = 0; r < 6; r++)
+                    for (var c = 0; c < 6; c++)
+                        newGrid[r][c] = [0, 1, 2].map(ix => grid[rowShuffle[ix][r]][columnShuffle[ix][c]].substr(ix, 1)).join('');
+                grid = newGrid;
+
+                rnd.shuffleFisherYates(columnShuffle1);
+                rnd.shuffleFisherYates(rowShuffle1);
+
+                var newSmallGrid = [];
+                for (var r = 0; r < 6; r++)
+                    newSmallGrid.push([0, 1, 2, 3, 4, 5].map(c => smallGrid[rowShuffle1[r]].substr(columnShuffle1[c], 1)).join(''));
+                smallGrid = newSmallGrid;
+            }
+
+            var ords = ["1st", "2nd", "3rd", "4th", "5th"];
+            var colSpans = document.getElementsByClassName('column-rule');
+            for (var i = 0; i < 3; i++)
+                colSpans[i].innerText = ords[sts[i]];
+            /*
+            var cellRules = document.getElementsByClassName('cell-rule');
+            for (var r = 0; r < 6; r++)
+                for (var c = 0; c < 6; c++)
+                    cellRules[r * 6 + c].innerText = grid[r][c];
+                    */
+
+            var smallRules = document.getElementsByClassName('small-rule');
+            var colors = 'orange,yellow,red,green,blue,purple'.split(',');
+            for (var r = 0; r < 6; r++)
+                for (var c = 0; c < 6; c++)
+                {
+                    const smallColor = smallGrid[r].substr(c, 1);
+                    smallRules[r * 6 + c].innerText = smallColor;
+                    smallRules[r * 6 + c].className = `small-rule ${colors.filter(color => color[0] == smallColor.toLowerCase())[0]}`;
+                }
+        }
+    </script>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Simon Screams</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Simon Screams.svg" class="diagram">
+                <h2>On the Subject of Simon Screams</h2>
+                <p class="flavour-text">
+                    He’s angry! He’s furious! He’s enraged! He’s had it!
+
+                <table class="simon-screams">
+                    <tr class="top">
+                        <td class="corner" rowspan="2">
+
+                            <table>
+                                <tr>
+                                    <td class="inequality">≥ 3</td>
+                                    <th>1
+                                    </th><th>2
+                                    </th><th>3
+                                    </th><th>4
+                                    </th><th>5
+                                    </th><th>6
+                                </th></tr>
+                                <tr><th class="little">Ind.  </th>      <td class="small-rule">Y</td><td class="small-rule">O</td><td class="small-rule">G</td><td class="small-rule">R</td><td class="small-rule">B</td><td class="small-rule">P</td></tr>
+                                <tr><th class="little">Ports       </th><td class="small-rule">P</td><td class="small-rule">Y</td><td class="small-rule">R</td><td class="small-rule">B</td><td class="small-rule">O</td><td class="small-rule">G</td></tr>
+                                <tr><th class="little">Dig. in #</th>   <td class="small-rule">O</td><td class="small-rule">G</td><td class="small-rule">B</td><td class="small-rule">P</td><td class="small-rule">R</td><td class="small-rule">Y</td></tr>
+                                <tr><th class="little">Let. in #</th>   <td class="small-rule">G</td><td class="small-rule">B</td><td class="small-rule">O</td><td class="small-rule">Y</td><td class="small-rule">P</td><td class="small-rule">R</td></tr>
+                                <tr><th class="little">Bat.   </th>     <td class="small-rule">R</td><td class="small-rule">P</td><td class="small-rule">Y</td><td class="small-rule">O</td><td class="small-rule">G</td><td class="small-rule">B</td></tr>
+                                <tr><th class="little">Bat. hold</th>   <td class="small-rule">B</td><td class="small-rule">R</td><td class="small-rule">P</td><td class="small-rule">G</td><td class="small-rule">Y</td><td class="small-rule">O</td></tr>
+                            </table>
+                        </td>
+
+                        <th colspan="6" class="corner">
+                            <p>Stage 1: <span class='column-rule'>1st</span> flashing</p>
+                            <p>Stage 2: <span class='column-rule'>2nd</span> flashing</p>
+                            <p>Stage 3: <span class='column-rule'>3rd</span> flashing
+                    </p></th></tr>
+                    <tr class="rotated">
+                        <th><span class="text">red</span>
+                        </th><th><span class="text">orange</span>
+                        </th><th><span class="text">yellow</span>
+                        </th><th><span class="text">green</span>
+                        </th><th><span class="text">blue</span>
+                        </th><th><span class="text">purple</span>
+                    </th></tr>
+
+                    <tr class="letters"><th class='row-rule'>3 clockwise in a row</th><td class="cell-rule">552</td><td class="cell-rule">246</td><td class="cell-rule">615</td><td class="cell-rule">423</td><td class="cell-rule">334</td><td class="cell-rule">161</td></tr>
+                    <tr class="letters"><th class='row-rule'>x, then adjacent, then x</th><td class="cell-rule">165</td><td class="cell-rule">352</td><td class="cell-rule">426</td><td class="cell-rule">234</td><td class="cell-rule">541</td><td class="cell-rule">613</td></tr>
+                    <tr class="letters"><th class='row-rule'>At most 1 out of R, Y, and B</th><td class="cell-rule">343</td><td class="cell-rule">425</td><td class="cell-rule">564</td><td class="cell-rule">611</td><td class="cell-rule">156</td><td class="cell-rule">232</td></tr>
+                    <tr class="letters"><th class='row-rule'>2 opposite colors didn’t flash</th>            <td class="cell-rule">624</td><td class="cell-rule">131</td><td class="cell-rule">253</td><td class="cell-rule">366</td><td class="cell-rule">412</td><td class="cell-rule">545</td></tr>
+                    <tr class="letters"><th class='row-rule'>2 clockwise in a row</th>            <td class="cell-rule">216</td><td class="cell-rule">563</td><td class="cell-rule">331</td><td class="cell-rule">142</td><td class="cell-rule">625</td><td class="cell-rule">454</td></tr>
+                    <tr class="letters"><th>Otherwise   </th>                       <td class="cell-rule">431</td><td class="cell-rule">614</td><td class="cell-rule">142</td><td class="cell-rule">555</td><td class="cell-rule">263</td><td class="cell-rule">326</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

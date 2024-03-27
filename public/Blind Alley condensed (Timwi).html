@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Blind Alley — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <script src='js/ruleseed.js'></script>
+    <style>
+        table.regions {
+            width: 100%;
+            border: none;
+            margin: 0 2em 1em 0;
+            clear: both;
+        }
+
+        table.regions col { width: 33%; }
+
+        ul {
+            padding-left: 1.5em;
+            font-size: 21pt;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+    </style>
+    <script>
+        var conditions = [
+            "lit IND",
+            "DVI-D",
+            "RJ-45",
+            "even hs",
+            "unlit FRQ",
+            "lit CAR",
+            "lit SND",
+            "unlit CLR",
+            "lit TRN",
+            "parallel",
+            "even bs",
+            "RCA",
+            "serial",
+            "unlit TRN",
+            "PS/2",
+            "unlit FRK",
+            "lit BOB",
+            "lit NSA",
+            "lit SIG",
+            "lit MSA",
+            "even in #",
+            "lit FRK",
+            "unlit CAR",
+            "unlit NSA",
+            "unlit BOB",
+            "vowel in #",
+            "unlit SND",
+            "lit CLR",
+            "unlit MSA",
+            "unlit IND",
+            "unlit SIG",
+            "lit FRQ"
+        ];
+        function setDefaultRules(rnd) { setRules(rnd); }
+        function setRules(rnd)
+        {
+            var list = conditions.slice(0);
+            rnd.shuffleFisherYates(list);
+            var lis = document.getElementsByClassName('condition');
+            for (var i = 0; i < lis.length; i++)
+                lis[i].innerText = list[i];
+        }
+    </script>
+</head>
+<body>
+    <div class="section">
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Blind Alley</span>
+            </div>
+            <div class="page-content">
+                <img class="diagram" src="img/Component/Component.svg">
+                <h2>On the Subject of the Blind Alley</h2>
+
+                <p class="flavour-text">What? Where?
+
+                <p>
+                    The module appears blank, but has eight touch-sensitive regions laid out
+                    as in the following diagram. Touch the regions that have the most
+                    conditions met in any order.
+
+                <table class='regions'>
+                    <col><col><col>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li class='condition'>unlit BOB
+                                <li class='condition'>lit CAR
+                                <li class='condition'>lit IND
+                                <li class='condition'>even hs
+                            </ul>
+                        <td>
+                            <ul>
+                                <li class='condition'>unlit CAR
+                                <li class='condition'>unlit NSA
+                                <li class='condition'>lit FRK
+                                <li class='condition'>RJ-45
+                            </ul>
+                        <td class='corner'>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li class='condition'>unlit FRQ
+                                <li class='condition'>unlit IND
+                                <li class='condition'>unlit TRN
+                                <li class='condition'>DVI-D
+                            </ul>
+                        <td>
+                            <ul>
+                                <li class='condition'>unlit SIG
+                                <li class='condition'>unlit SND
+                                <li class='condition'>lit NSA
+                                <li class='condition'>even bs
+                            </ul>
+                        <td>
+                            <ul>
+                                <li class='condition'>lit BOB
+                                <li class='condition'>lit CLR
+                                <li class='condition'>PS/2
+                                <li class='condition'>serial
+                            </ul>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li class='condition'>lit FRQ
+                                <li class='condition'>lit SIG
+                                <li class='condition'>lit TRN
+                                <li class='condition'>even in #
+                            </ul>
+                        <td>
+                            <ul>
+                                <li class='condition'>unlit FRK
+                                <li class='condition'>lit MSA
+                                <li class='condition'>parallel
+                                <li class='condition'>vowel in #
+                            </ul>
+                        <td>
+                            <ul>
+                                <li class='condition'>unlit CLR
+                                <li class='condition'>unlit MSA
+                                <li class='condition'>lit SND
+                                <li class='condition'>RCA
+                            </ul>
+                    </tr>
+                </table>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 1</div>
+        </div>
+    </div>
+</body>
+</html>

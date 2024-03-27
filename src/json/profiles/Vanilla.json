@@ -1,0 +1,15 @@
+{
+  "EnabledList": [
+    "Venn",
+    "Keypad",
+    "BigButton",
+    "Maze",
+    "Memory",
+    "Morse",
+    "Password",
+    "Simon",
+    "WhosOnFirst",
+    "Wires",
+    "WireSequence"
+  ]
+}

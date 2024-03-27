@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Minesweeper — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .borderless {
+            border: none;
+        }
+
+        #letter-lookup {
+            text-align: center;
+            float: right;
+            margin-left: 1.5em;
+        }
+
+        .red {
+            background: red;
+        }
+
+        .orange {
+            background: orange;
+        }
+
+        .yellow {
+            background: yellow;
+        }
+
+        .green {
+            background: green;
+        }
+
+        .blue {
+            background: blue;
+        }
+
+        .purple {
+            background: purple;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <div class="page page-bg-07">
+        <div class="page-header">
+            <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+            <span class="page-header-section-title">Minesweeper</span>
+        </div>
+        <div class="page-content">
+            <img class="diagram" src="img/Component/Minesweeper.svg">
+            <h2>On the Subject of Murking Minesweeper</h2>
+            <p class="flavour-text">Somehow all the text on the manual page feels oddly redundant.</p>
+            <h3>Locating the starting cell</h3>
+            <p>Count [<b>2nd number in SN</b>] colored squares in reading order. (IF 0, SUBSTITUTE 10)</p>
+            <p>Find the color there and look it up in the color table for a number.</p><p>
+                Take that number, then add [<b>first letter in SN's numeric value</b>]. Count that many colored squares in <b>reverse</b> reading order. That is your starting square.</p>
+                <table id="letter-lookup">
+                <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
+                    <th>E</th>
+                    <th>F</th>
+                    <th>G</th>
+                    <th>H</th>
+                    <th>I</th>
+                    <th>J</th>
+                    <th>K</th>
+                    <th>L</th>
+                    <th>M</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <th>N</th>
+                    <th>O</th>
+                    <th>P</th>
+                    <th>Q</th>
+                    <th>R</th>
+                    <th>S</th>
+                    <th>T</th>
+                    <th>U</th>
+                    <th>V</th>
+                    <th>W</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>Z</th>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>15</td>
+                    <td>16</td>
+                    <td>17</td>
+                    <td>18</td>
+                    <td>19</td>
+                    <td>20</td>
+                    <td>21</td>
+                    <td>22</td>
+                    <td>23</td>
+                    <td>24</td>
+                    <td>25</td>
+                    <td>26</td>
+                </tr>
+            </table>
+            <table class="color-lookup borderless">
+                <tr>
+                    <th colspan="2">Color</th><th>#</th>
+                </tr>
+                <tr>
+                    <td>Red</td><td class="red"></td><td>5</td>
+                </tr>
+                <tr>
+                    <td>Orange</td><td class="orange"></td><td>2</td>
+                </tr>
+                <tr>
+                    <td>Yellow</td><td class="yellow"></td><td>3</td>
+                </tr>
+                <tr>
+                    <td>Green</td><td class="green"></td><td>1</td>
+                </tr>
+                <tr>
+                    <td>Blue</td><td class="blue"></td><td>6</td>
+                </tr>
+                <tr>
+                    <td>Purple</td><td class="purple"></td><td>4</td>
+                </tr>
+            </table>
+
+
+        </div>
+        <div class="page-footer relative-footer">Page 1 of 1</div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1">
+	<title>Colour Flash — Keep Talking and Nobody Explodes Module</title>
+	<link rel="stylesheet" type="text/css" href="css/font.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/ktane-utils.js"></script>
+	<style>
+		.condition {
+			font-weight: bold;
+			text-decoration: underline;
+		}
+
+		.yes {
+			background-color: #90ee90;
+			font-weight: bold;
+		}
+
+		.no {
+			background-color: #FF726F;
+			font-weight: bold;
+		}
+
+		#red {
+			background-color: #FF4040;
+		}
+
+		#green {
+			background-color: #4CAF50;
+		}
+
+		#yellow {
+			background-color: #FFFF00;
+		}
+
+		#blue {
+			background-color: #00DDFF;
+		}
+
+		#magenta {
+			background-color: #FF00FF;
+		}
+	</style>
+</head>
+<body>
+<div class="section">
+	<div class="page page-bg-01">
+		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+			<span class="page-header-section-title">Colour Flash</span>
+		</div>
+		<div class="page-content">
+			<img class="diagram" src="img/Component/Colour Flash.svg">
+			<h2>On the Subject of Colour Flash</h2>
+			<p class="flavour-text">
+				It’s easy to identify colours. Red, Blue, Green, etc. Turns out it's a bit harder when you READ THE DAMN
+				COLORS FIRST, FLAW...
+			</p>
+			<ul>
+				<li>Use the color of the last word in the sequence to determine which table to use.</li>
+			</ul>
+			<table style="width: 100%">
+				<tr>
+					<th id="red" colspan="3">Red</th>
+				</tr>
+				<tr>
+					<th>Rule</th>
+					<th>Press</th>
+					<th>When</th>
+				</tr>
+				<tr>
+					<td>Green is the word 3+ times</td>
+					<td class="yes">Yes</td>
+					<td>3rd time Green is either word/color</td>
+				</tr>
+				<tr>
+					<td>Blue is the color exactly 1 time</td>
+					<td class="no">No</td>
+					<td>On the word Magenta</td>
+				</tr>
+				<tr>
+					<td>Else</td>
+					<td class="yes">Yes</td>
+					<td>Last time White is the word/color</td>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 100%">
+				<tr>
+					<th id="yellow" colspan="3">Yellow</th>
+				</tr>
+				<tr>
+					<th>Rule</th>
+					<th>Press</th>
+					<th>When</th>
+				</tr>
+				<tr>
+					<td>The word Blue is shown in green</td>
+					<td class="yes">Yes</td>
+					<td>First time Green is the color</td>
+				</tr>
+				<tr>
+					<td>The word White is shown in white/red</td>
+					<td class="yes">Yes</td>
+					<td>2nd time in sequence the color of the word doesn't match the word itself</td>
+				</tr>
+				<tr>
+					<td>Else</td>
+					<td class="no">No</td>
+					<td>Count the # of times Magenta is the word/color - press No on that number in the sequence</td>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 100%">
+				<tr>
+					<th id="green" colspan="3">Green</th>
+				</tr>
+				<tr>
+					<th>Rule</th>
+					<th>Press</th>
+					<th>When</th>
+				</tr>
+				<tr>
+					<td>A word occurs twice in a row with different colors</td>
+					<td class="no">No</td>
+					<td>5th entry in sequence</td>
+				</tr>
+				<tr>
+					<td>Magenta is the word 3+ times</td>
+					<td class="no">No</td>
+					<td>1st time Yellow is the word/color</td>
+				</tr>
+				<tr>
+					<td>Else</td>
+					<td class="yes">Yes</td>
+					<td>Any position where the color matches the word</td>
+				</tr>
+			</table>
+			<br>
+		</div>
+		<div class="page-footer relative-footer">Page 1 of 2</div>
+	</div>
+	<div class="page page-bg-02">
+		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+			<span class="page-header-section-title">Colour Flash</span>
+		</div>
+        <div class="page-content">
+		<table style="width: 100%">
+			<tr>
+				<th id="blue" colspan="3">Blue</th>
+			</tr>
+			<tr>
+				<th>Rule</th>
+				<th>Press</th>
+				<th>When</th>
+			</tr>
+			<tr>
+				<td>Color does not match word 3+ times</td>
+				<td class="yes">Yes</td>
+				<td>First time color does not match word</td>
+			</tr>
+			<tr>
+				<td>Red in yellow color / Yellow in white color</td>
+				<td class="no">No</td>
+				<td>White in red color</td>
+			</tr>
+			<tr>
+				<td>Else</td>
+				<td class="yes">Yes</td>
+				<td>The last time Green is the word/color</td>
+			</tr>
+		</table>
+		<br>
+		<table style="width: 100%">
+			<tr>
+				<th id="magenta" colspan="3">Magenta</th>
+			</tr>
+			<tr>
+				<th>Rule</th>
+				<th>Press</th>
+				<th>When</th>
+			</tr>
+			<tr>
+				<td>A color occurs twice in a row with different words</td>
+				<td class="yes">Yes</td>
+				<td>3rd entry in sequence</td>
+			</tr>
+			<tr>
+				<td>The word Yellow appears more times than the color blue</td>
+				<td class="no">No</td>
+				<td>Last time Yellow is the word</td>
+			</tr>
+			<tr>
+				<td>Else</td>
+				<td class="no">No</td>
+				<td>First time the color of the word matches the word of the 7th entry in sequence</td>
+			</tr>
+		</table>
+		<br>
+		<table style="width: 100%">
+			<tr>
+				<th colspan="3">White</th>
+			</tr>
+			<tr>
+				<th>Rule</th>
+				<th>Press</th>
+				<th>When</th>
+			</tr>
+			<tr>
+				<td>3rd color matches 4th/5th word</td>
+				<td class="no">No</td>
+				<td>First time Blue is the word/color</td>
+			</tr>
+			<tr>
+				<td>Yellow in red color</td>
+				<td class="yes">Yes</td>
+				<td>Last time blue is the color</td>
+			</tr>
+			<tr>
+				<td>Else</td>
+				<td class="no">No</td>
+				<td>Anytime</td>
+			</tr>
+		</table>
+        </div>
+	</div>
+	<div class="page-footer relative-footer">Page 2 of 2</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Perspective Pegs — Keep Talking and Nobody Explodes Mod</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        em { font-style: normal; font-weight: bold; text-decoration: none; }
+        td.sep { padding: 0 1mm; }
+        col.number { width: 15mm; }
+        col.color, col.sequence { width: 30mm; }
+        td.number, td.subhead, td.sequence { text-align: center; }
+        h3 { font-weight: normal; font-size: 1.25em; }
+        h4 { text-decoration: none; margin-top: 3em; }
+        p { margin: .1em 0; }
+        table { border: none; margin-top: .2em; }
+        
+        #letter-lookup {
+            text-align: center;
+            float: right;
+            margin-left: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Perspective Pegs</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Perspective Pegs.svg" class="diagram">
+                <h2>On the Subject of Perfectly Plundering Perspective Pegs</h2>
+                <p class="flavour-text">Look, no matter how many ways you look at the bomb, it's still going to blow you up if you don't defuse this fast.</p>
+                <ul>
+                    <li>Positive difference of the <b>1st and 2nd letters in SN</b></li>
+                    <li>If 4+ letters in SN, add the positive difference of <b>3rd and 4th letters</b></li>
+                    <li>Look up this number (mod 10) in the Key Color table to get your <b>Key Color</b>.</li>
+                    <hr>
+                    <li>Look for the peg with 3+ of the key color on it, then read the outermost colors from that peg in clockwise order. This is your <b>Current Sequence.</b></li>
+                    <li>Take your current sequence, read through the corresponding column of the Prime/Alternate table, and <b>replace any occurences of a sequence forwards/backwards</b> with the alternate sequence (forwards/backwards).</li>
+                    <li>Take the first 3 letters of that sequence, then <b>look for that 3-length color sequence forwards/backwards</b> on any of the 5 perspectives of the pegs. <b>Press the pegs in that order.</b></li>
+                </ul>
+                <table id="letter-lookup">
+                <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
+                    <th>E</th>
+                    <th>F</th>
+                    <th>G</th>
+                    <th>H</th>
+                    <th>I</th>
+                    <th>J</th>
+                    <th>K</th>
+                    <th>L</th>
+                    <th>M</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <th>N</th>
+                    <th>O</th>
+                    <th>P</th>
+                    <th>Q</th>
+                    <th>R</th>
+                    <th>S</th>
+                    <th>T</th>
+                    <th>U</th>
+                    <th>V</th>
+                    <th>W</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>Z</th>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>15</td>
+                    <td>16</td>
+                    <td>17</td>
+                    <td>18</td>
+                    <td>19</td>
+                    <td>20</td>
+                    <td>21</td>
+                    <td>22</td>
+                    <td>23</td>
+                    <td>24</td>
+                    <td>25</td>
+                    <td>26</td>
+                </tr>
+            </table>
+                <table style="text-align: center;">
+                    <col width="50px">
+                    <col width="50px">
+                    <col width="100px">
+                    <tr>
+                        <th colspan="3">Key Color</th>
+                    </tr>
+                    <tr>
+                        <td class='number'>0<td class='number'>3<td>Red
+                    </tr>
+                    <td class='number'>5<td class='number'>8<td>Blue
+                        </tr>
+                    <tr>
+                        <td class='number'>4<td class='number'>9<td>Yellow
+                    </tr>
+                        <td class='number'>2<td class='number'>6<td>Purple
+                    </tr>
+                    <tr>
+                        <td class='number'>1<td class='number'>7<td>Green
+                    </tr>
+                </table>
+                <br>
+                <table style="text-align: center;">
+                    <col width="110px">
+                    <col width="110px">
+                    <col width="110px">
+                    <col width="110px">
+                    <col width="110px">
+                    <col width="110px">
+                    <tr>
+                        <th colspan="2">1 – 2 Batteries</th>
+                        <th colspan="2">3 – 4 Batteries</th>
+                        <th colspan="2">0, 5+ Batteries</th>
+                    </tr>
+                    <tr>
+                        <td>Prime</td>
+                        <td>Alternate</td>
+                        <td>Prime</td>
+                        <td>Alternate</td>
+                        <td>Prime</td>
+                        <td>Alternate</td>
+                    </tr>
+                    <tr>
+                        <td>R Y Y</td>
+                        <td>B P Y</td>
+                        <td>B P B</td>
+                        <td>Y B G</td>
+                        <td>P Y B</td>
+                        <td>R G B</td>
+                    </tr>
+                    <tr>
+                        <td>Y P G</td>
+                        <td>P B R</td>
+                        <td>Y Y P</td>
+                        <td>B R P</td>
+                        <td>Y R P</td>
+                        <td>R Y R</td>
+                    </tr>
+                    <tr>
+                        <td>R G P</td>
+                        <td>B G R</td>
+                        <td>G R B</td>
+                        <td>Y P B</td>
+                        <td>G Y R</td>
+                        <td>G B P</td>
+                    </tr>
+                    <tr>
+                        <td>Y B G</td>
+                        <td>B Y Y</td>
+                        <td>R P Y</td>
+                        <td>G B G</td>
+                        <td>B Y G</td>
+                        <td>P G R</td>
+                    </tr>
+                    <tr>
+                        <td>P P R</td>
+                        <td>R Y P</td>
+                        <td>Y G G</td>
+                        <td>P B R</td>
+                        <td>R P Y</td>
+                        <td>G Y B</td>
+                    </tr>
+                    <tr>
+                        <td>B G B</td>
+                        <td>P Y G</td>
+                        <td>G P B</td>
+                        <td>Y G Y</td>
+                        <td>P P G</td>
+                        <td>P B R</td>
+                    </tr>
+                    <tr>
+                        <td>Y G B</td>
+                        <td>G P Y</td>
+                        <td>P R P</td>
+                        <td>B B G</td>
+                        <td>R Y Y</td>
+                        <td>B B R</td>
+                    </tr>
+                    <tr>
+                        <td>P G G</td>
+                        <td>G Y R</td>
+                        <td>R Y R</td>
+                        <td>R P B</td>
+                        <td>Y G P</td>
+                        <td>P Y Y</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 1</div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- If you find this, message JakkOfKlubs "Bananarama." You found an easter egg! Kappa -->

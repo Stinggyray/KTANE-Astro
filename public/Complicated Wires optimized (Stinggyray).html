@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1">
+	<title>Complicated Wires — Keep Talking and Nobody Explodes</title>
+	<link rel="stylesheet" type="text/css" href="css/font.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/ktane-utils.js"></script>
+	<style>
+		table.complicated-wires {
+			table-layout: fixed;
+			width: 100%;
+		}
+
+		table.complicated-wires > tbody > tr > td {
+			vertical-align: top;
+			padding: 10px;
+		}
+
+		table.complicated-wires > tbody > tr > td > ul {
+			padding-left: 15px;
+			margin-top: 5px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="section">
+	<div class="page page-bg-05">
+		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes</span>
+			<span class="page-header-section-title">Complicated Wires</span>
+		</div>
+		<div class="page-content">
+			<img src="img/Component/Complicated Wires.svg" class="diagram"/>
+			<h2>On the Subject of Complicated Wires</h2>
+			<p class="flavour-text">A thankfully less-concise manual page.</p>
+			<ul>
+				<li>There are 5 categories of wires. Locate each wire in each category to determine quickly if you
+					should cut it or not, depending on the criteria.
+				</li>
+			</ul>
+			<table class="complicated-wires">
+				<tr>
+					<td>
+						<strong>Always Cut</strong>
+						<ul>
+							<li>Nothing</li>
+							<li>Star</li>
+							<li>Red Star</li>
+						</ul>
+					</td>
+					<td>
+						<strong>Parallel</strong>
+						<ul>
+							<li>Blue Lit</li>
+							<li>Blue Star Lit</li>
+							<li>Blue Red Star</li>
+						</ul>
+					</td>
+					<td>
+						<strong>Never Cut</strong>
+						<ul>
+							<li>Lit</li>
+							<li>Blue Star</li>
+							<li>Everything<br>(Red Blue Star Lit)</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Last digit of SN is even</strong>
+						<ul>
+							<li>Red</li>
+							<li>Blue</li>
+							<li>Red Blue</li>
+							<li>Red Blue Lit</li>
+						</ul>
+					</td>
+					<td><strong>2+ Batteries</strong>
+						<ul>
+							<li>Red Lit</li>
+							<li>Red Star Lit</li>
+							<li>Lit Star</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="page-footer relative-footer">Page 1 of 1</div>
+	</div>
+</div>
+</body>
+</html>

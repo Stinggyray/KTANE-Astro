@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Boolean Venn Diagram — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        td {
+            width:25%;
+            text-align:center;
+            font-weight:bold;
+            font-size:125%;
+            line-height:120%;
+        }
+        span.logic {
+            font-size: 120%;
+            font-family: 'Logic-round';
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <div class="page page-bg-01">
+        <div class="page-header">
+            <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+            <span class="page-header-section-title">Boolean Venn Diagram</span>
+        </div>
+        <div class="page-content">
+            <img src="img/Component/Boolean Venn Diagram.svg" class="diagram">
+            <h2>On the Subject of Boolean Venn Diagrams</h2>
+            <p class="flavour-text">
+                Why is there a big Venn diagram? Why are there some weird symbols? Oh no...
+
+            <ul>
+                <li>
+                    This module has eight buttons, one for each enclosed section of the Venn diagram and one representing the area not enclosed in any section of the diagram.
+                <li>
+                    The three circles are referred to as "A" (top), "B" (bottom left), and "C" (bottom right).
+                <li>
+                    For each section, use the boolean logic expression displayed above the Venn diagram to determine if that section is "true" or "false" by using the following rules:
+                    <ul>
+                        <li> If the section is enclosed in a circle, then the value for that variable is considered to be "true". Otherwise, it is "false".<br>
+                             <i>Example: The middle section is enclosed in all three circles, so "A", "B", and "C" should all be considered to be "true" while evaluating that section.</i>
+                        <li> Evaluate the operator inside the parentheses before the one outside of the parentheses.
+                        <li> Images describing each operator can be found below (gray regions represent "true").
+                        <li> If the section evaluates to "true", press the button that corresponds with it. The section will turn green.
+                    </ul>
+                <li> Solve the module by pressing the buttons corresponding to all of the "true" sections.
+                <li> Note: if an incorrect button is pressed, a strike will be issued and the section will turn red.
+            </ul>
+            <!-- Note that this table may be replaced with a harder version -->
+            <table style="width:100%">
+                <tr>
+                    <td><span class="logic">X &#x2227; Y</span><br>AND</td>
+                    <td><span class="logic">X &#x2228; Y</span><br>OR</td>
+                    <td><span class="logic">X &#x22BB; Y</span><br>XOR</td>
+                    <td><span class="logic">X &#x2192; Y</span><br>IMPLIES</td>
+                </tr>
+                <tr>
+                    <td><img src="img/Boolean Venn Diagram/TAND.svg"></td>
+                    <td><img src="img/Boolean Venn Diagram/TOR.svg"></td>
+                    <td><img src="img/Boolean Venn Diagram/TXOR.svg"></td>
+                    <td><img src="img/Boolean Venn Diagram/TLIMP.svg"></td>
+                </tr>
+            </table>
+            <div style="height: 15px"></div>
+            <table style="width:100%">
+                <tr>
+                    <td><span class="logic">X | Y</span><br>NAND</td>
+                    <td><span class="logic">X &#x2193; Y</span><br>NOR</td>
+                    <td><span class="logic">X &#x2194; Y</span><br>XNOR</td>
+                    <td><span class="logic">X &#x2190; Y</span><br>IMPLIED BY</td>
+                </tr>
+                <tr>
+                    <td><img src="img/Boolean Venn Diagram/TNAND.svg"></td>
+                    <td><img src="img/Boolean Venn Diagram/TNOR.svg"></td>
+                    <td><img src="img/Boolean Venn Diagram/TXNOR.svg"></td>
+                    <td><img src="img/Boolean Venn Diagram/TRIMP.svg"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="page-footer relative-footer">Page 1 of 1</div>
+    </div>
+</div>
+</body>
+</html>

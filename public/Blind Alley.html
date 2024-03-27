@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Blind Alley — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <script src='js/ruleseed.js'></script>
+    <style>
+        table.regions {
+            border: none;
+            margin: 0 2em 1em 0;
+            clear: both;
+        }
+
+        table.regions col { width: 33%; }
+
+        ul {
+            padding-left: 1.5em;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+    </style>
+    <script>
+        var conditions = [
+            "There is a lit IND indicator.",
+            "There is a DVI-D port.",
+            "There is an RJ-45 port.",
+            "There is an even number of battery holders.",
+            "There is an unlit FRQ indicator.",
+            "There is a lit CAR indicator.",
+            "There is a lit SND indicator.",
+            "There is an unlit CLR indicator.",
+            "There is a lit TRN indicator.",
+            "There is a parallel port.",
+            "There is an even number of batteries.",
+            "There is a Stereo RCA port.",
+            "There is a serial port.",
+            "There is an unlit TRN indicator.",
+            "There is a PS/2 port.",
+            "There is an unlit FRK indicator.",
+            "There is a lit BOB indicator.",
+            "There is a lit NSA indicator.",
+            "There is a lit SIG indicator.",
+            "There is a lit MSA indicator.",
+            "There is an even digit in the serial number.",
+            "There is a lit FRK indicator.",
+            "There is an unlit CAR indicator.",
+            "There is an unlit NSA indicator.",
+            "There is an unlit BOB indicator.",
+            "There is a vowel in the serial number.",
+            "There is an unlit SND indicator.",
+            "There is a lit CLR indicator.",
+            "There is an unlit MSA indicator.",
+            "There is an unlit IND indicator.",
+            "There is an unlit SIG indicator.",
+            "There is a lit FRQ indicator."
+        ];
+        function setDefaultRules(rnd) { setRules(rnd); }
+        function setRules(rnd)
+        {
+            var list = conditions.slice(0);
+            rnd.shuffleFisherYates(list);
+            var lis = document.getElementsByClassName('condition');
+            for (var i = 0; i < lis.length; i++)
+                lis[i].innerText = list[i];
+        }
+    </script>
+</head>
+<body>
+    <div class="section">
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Blind Alley</span>
+            </div>
+            <div class="page-content">
+                <img class="diagram" src="img/Component/Component.svg">
+                <h2>On the Subject of the Blind Alley</h2>
+
+                <p class="flavour-text">What? Where?</p>
+                <p class="appendix-reference" id="appendix-reference">See Appendix BLANK for blank modules identification.</p>
+
+                <p>
+                    The module appears blank, but has eight touch-sensitive regions laid out
+                    as in the following diagram. Touch the regions that have the most
+                    conditions met in any order.
+                </p>
+                <table class='regions'>
+                    <col><col><col>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is an unlit BOB indicator.</li>
+                                <li class='condition'>There is a lit CAR indicator.</li>
+                                <li class='condition'>There is a lit IND indicator.</li>
+                                <li class='condition'>There is an even number of battery holders.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is an unlit CAR indicator.</li>
+                                <li class='condition'>There is an unlit NSA indicator.</li>
+                                <li class='condition'>There is a lit FRK indicator.</li>
+                                <li class='condition'>There is an RJ-45 port.</li>
+                            </ul>
+                        </td>
+                        <td class='corner'></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is an unlit FRQ indicator.</li>
+                                <li class='condition'>There is an unlit IND indicator.</li>
+                                <li class='condition'>There is an unlit TRN indicator.</li>
+                                <li class='condition'>There is a DVI-D port.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is an unlit SIG indicator.</li>
+                                <li class='condition'>There is an unlit SND indicator.</li>
+                                <li class='condition'>There is a lit NSA indicator.</li>
+                                <li class='condition'>There is an even number of batteries.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is a lit BOB indicator.</li>
+                                <li class='condition'>There is a lit CLR indicator.</li>
+                                <li class='condition'>There is a PS/2 port.</li>
+                                <li class='condition'>There is a serial port.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is a lit FRQ indicator.</li>
+                                <li class='condition'>There is a lit SIG indicator.</li>
+                                <li class='condition'>There is a lit TRN indicator.</li>
+                                <li class='condition'>There is an even digit in the serial number.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is an unlit FRK indicator.</li>
+                                <li class='condition'>There is a lit MSA indicator.</li>
+                                <li class='condition'>There is a parallel port.</li>
+                                <li class='condition'>There is a vowel in the serial number.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li class='condition'>There is an unlit CLR indicator.</li>
+                                <li class='condition'>There is an unlit MSA indicator.</li>
+                                <li class='condition'>There is a lit SND indicator.</li>
+                                <li class='condition'>There is a stereo RCA port.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 2</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Guide</span>
+                <span class="page-header-section-title">Appendix BLANK</span>
+            </div>
+            <div class="page-content">
+                <h2 id="app-blank-modules">Appendix BLANK: Identifying Blank Modules</h2>
+                <p class="flavour-text">Somebody at Bomb Corp. got a bit lazy on the graphics.</p>
+
+                <p>You may have noticed that there are some modules which (at least initially) appear blank. At first glance, all modules of this variety are indistinguishable*. Follow the instructions below in order to determine what module you are looking at.</p>
+                <p class="note">* Note: The module <a href="Hinges.html">Hinges</a> has one or more hinges missing from the module casing, but is otherwise blank.</p>
+                <ol>
+                    <li>Select the module (but do not tap on it).
+                        <ul>
+                            <li>If the module begins to transform, you are looking at <a href="The%20Octadecayotton.html">The Octadecayotton</a>.</li>
+                            <li>If the module is now highlighted in red, you are looking at <a href="Punctuation%20Marks.html">...?</a>.</li>
+                        </ul>
+                    </li>
+                    <li>Move the cursor back and forth over the module.
+                        <ul>
+                            <li>If the module has patterns of dots on it, you are looking at <a href="Braille.html">Braille</a>.</li>
+                            <li>If the module has shapes on it, you are looking at <a href="Polygons.html">Polygons</a>.</li>
+                            <li>If the module has numbers and a shape on it, you are looking at <a href="Hidden%20In%20Plain%20Sight.html">Hidden In Plain Sight</a>.</li>
+                            <li>If you hear a tone, you are looking at <a href="Deaf%20Alley.html">Deaf Alley</a>.</li>
+                            <li>If you hear whirring sounds or a printer-like sound, you are looking at <a href="Eavesdropping.html">Eavesdropping</a>.</li>
+                            <li>If you repeatedly hear “COW”, you are looking at <a href="Find%20The%20Invisible%20Cow.html">Find The Invisible Cow</a>.</li>
+                            <li>If you hear the clicking sound that is played when hovering over a button <b>but do not have any visual feedback</b>, you are looking at Blind Alley. Simply follow the instructions on the first page of this manual.</li>
+                        </ul>
+                    </li>
+                    <li>Press and hold the module.
+                        <ul>
+                            <li>If the module shattered like glass, you are looking at <a href="A%20Mistake.html">A Mistake</a>. It is safe to release at any time.</li>
+                            <li>If the module begins making ticking noises, you are looking at <a href="Tap%20Code.html">Tap Code</a>. It is safe to release at any time.</li>
+                            <li>If two zeroes begin flashing on the module, you are looking at <a href="42.html">42</a>. <b>DO NOT RELEASE until that module's manual instructs you to do so.</b></li>
+                            <li>If three zeroes begin flashing on the module, you are looking at <a href="501.html">501</a>. <b>DO NOT RELEASE until that module's manual instructs you to do so.</b></li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 2</div>
+        </div>
+    </div>
+</body>
+</html>

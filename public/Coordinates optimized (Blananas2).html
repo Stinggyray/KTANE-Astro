@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Coordinates — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .bracket-com0 { background-color: rgb(152, 0, 0); color: #FFF; }
+        .bracket-com { background-color: rgb(230, 184, 175); }
+        .angle0 { background-color: rgb(255, 0, 0); }
+        .angle { background-color: rgb(244, 204, 204); }
+        .paren0 { background-color: rgb(255, 153, 0); }
+        .paren { background-color: rgb(252, 229, 205); }
+        .quote0 { background-color: rgb(255, 255, 0); }
+        .quote { background-color: rgb(255, 242, 204); }
+        .bracket0 { background-color: rgb(0, 255, 0); }
+        .bracket { background-color: rgb(217, 234, 211); }
+        .hash0 { background-color: rgb(0, 255, 255); }
+        .hash { background-color: rgb(208, 224, 227); }
+        .letnum0 { background-color: rgb(74, 134, 232); }
+        .letnum { background-color: rgb(208, 218,248); }
+        .comma0 { background-color: rgb(0, 0, 255); color: #FFF; }
+        .comma { background-color: rgb(217, 226, 243); }
+        .dash0 { background-color: rgb(153, 0, 255); }
+        .dash { background-color: rgb(217, 210, 233); }
+        .slash0 { background-color: rgb(255, 0, 255); }
+        .slash { background-color: rgb(234, 209, 220); }
+        .gray0 { background-color: rgb(153, 153, 153); }
+        .gray { background-color: rgb(217, 217, 217); }
+        .white { background-color: white; }
+
+        span.footnote-marker {
+            vertical-align: super;
+            font-size: 70%;
+        }
+        .dark table, table {
+            border: none;
+        }
+        table.grid {
+            border-collapse: separate;
+            border-spacing: .5mm;
+        }
+        p.footnote {
+            font-size: 70%;
+        }
+        div.column {
+            float: left;
+            margin: 0 0 .7em;
+        }
+        div.column-1 { width: 37.5%; }
+        div.column-2 { width: 40.5%; }
+        div.column-3 { width: 22%; }
+        h4 {
+            clear: both;
+            margin: .7em 0 .2em;
+        }
+        div.footnotes {
+            position: relative;
+            margin-top: 2em;
+            padding-top: 1em;
+        }
+        div.footnotes:before {
+            border-top: 1px solid;
+            left: 0;
+            top: 0;
+            position: absolute;
+            width: 50mm;
+            content: '';
+        }
+        table.coordinate-notations th {
+            white-space: nowrap;
+        }
+        table.two-column-groups tr th:not(:first-child) {
+            border-left: 1mm solid;
+        }
+
+        input {
+            width: 25px;
+        }
+
+        .input-grid, .input-grid td, .input-grid th {
+            border: none;
+            text-align: center;
+        }
+
+        .marked.cell {
+            background-color: rgba(0, 0, 255, 0.25) !important; /* I’m sorry. */
+        }
+
+        .selected, .selected.cell {
+            background-color: rgba(255, 255, 0, 0.5) !important; /* Really sorry. */
+        }
+
+        .grid td {
+            padding: 0px 0px;
+            width: 0px;
+            height: 0px;
+            transition: padding 0.5s, border-color 0.5s, font-size 0.5s, background-color 0.5s;
+            border: 1px solid rgba(0, 0, 0, 0);
+            background-color: rgba(0, 0, 0, 0);
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            font-size: 0;
+            line-height: 0;
+            max-width: 0;
+        }
+
+        .grid td.cell {
+            font-size: initial;
+            padding: 25px 25px;
+            border-color: #222;
+            background-color: white;
+        }
+
+        .grid td span {
+            position: relative;
+            left: -5px;
+        }
+
+        .input {
+            float: left;
+            margin-right: 5px;
+            padding-top: 10px;
+        }
+
+        .input.width, .input.height {
+            padding: 10px;
+        }
+
+        button {
+            font-family: Special Elite;
+            background-color: white;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: black 3px solid;
+            transition: 0.3s;
+        }
+
+        button.arrow-down {
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .page-content {
+            position: relative;
+        }
+
+        /* Side grid */
+        .section {
+            display: grid !important; /* !important because multipage changes the section to flex. */
+            grid-template-columns: 0.5fr 1fr;
+            gap: 1em;
+            margin: 1em;
+        }
+
+        .page {
+            margin: 0;
+            width: auto;
+        }
+
+        .left-wrapper {
+            height: calc(100vh - 2em);
+        }
+
+        .center {
+            padding: 10px;
+            margin: 1px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .grid-wrapper {
+            display: grid;
+            grid-template-columns: min-content min-content;
+            grid-template-rows: min-content min-content;
+        }
+
+        /* Only add empty space if there’s enough horizontal room */
+        @media screen and (min-width: 1400px) {
+            .section {
+                grid-template-columns: 0.5fr 1fr 0.5fr;
+            }
+        }
+
+        /* Only show it as a "floating page" if we’re displayed separate pages. */
+        @media screen and (min-width: 900px) {
+            .center {
+                margin: 0px;
+                border: 1px solid #222;
+                box-shadow: #222 0.0em 0em 0.6em;
+                background: white;
+            }
+            .dark .center { background: #222; }
+        }
+
+        /* Only if the grid can fit on the page should it be sticky. */
+        @media screen and (min-height: 715px) {
+            .left-wrapper {
+                position: sticky;
+                top: 1em;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                height: calc(100vh - 2em);
+            }
+        }
+    </style>
+    <script src="js/jquery.3.1.1.min.js"></script>
+    <script>
+        $(function() {
+            var grid = $(".grid");
+            var selected;
+            var helm = $(".height");
+            var welm = $(".width");
+            let undos = [];
+            let redos = [];
+
+            function massChange(changes) {
+                changes.forEach(function(change) {
+                    var cell = change.cell;
+                    cell.toggleClass("marked", change.state != "").children("span").text(change.state);
+                });
+            }
+
+            $(document).click(function() {
+                selected = null;
+
+                updateSelection();
+            }).keydown(function(event) {
+                let k = event.key.toLowerCase();
+                if (!selected && k != "z" && k != "y") {
+                    selected = welm;
+                    updateSelection();
+                }
+
+                var n;
+                if (k == "w") {
+                    selected = welm;
+                    updateSelection();
+                } else if (k == "h") {
+                    selected = helm;
+                    updateSelection();
+                } else if (k == "z") {
+                    if (undos.length > 0) {
+                        var state = undos[undos.length - 1];
+                        var redo = [];
+
+                        state.forEach(function(change) {
+                            redo.push({cell: change.cell, state: change.cell[0].children[0].textContent});
+                        });
+                        massChange(state);
+
+                        undos.splice(undos.length - 1, 1);
+                        redos.push(redo);
+                    }
+                } else if (k == "y") {
+                    if (redos.length > 0) {
+                        state = redos[redos.length - 1];
+                        var undo = [];
+
+                        state.forEach(function(change) {
+                            undo.push({cell: change.cell, state: change.cell[0].children[0].textContent});
+                        });
+                        massChange(state);
+
+                        redos.splice(redos.length - 1, 1);
+                        undos.push(undo);
+                    }
+                } else if (selected.hasClass("cell")) {
+                    n = parseInt(event.key);
+                    if (n && n < 9) {
+                        undos.push([{cell: selected, state: selected.children("span").text()}]);
+                        redos = [];
+                        // $(".grid td.marked span").each(function() {
+                        //     if ($(this).text() == n.toString()) {
+                        //         $(this).text("").parent().removeClass("marked");
+                        //     }
+                        // });
+                        selected.children("span").text(n);
+                        selected.addClass("marked");
+                    } else if (event.key == "Backspace" || event.key == "Delete") {
+                        undos.push([{cell: selected, state: selected.children("span").text()}]);
+                        redos = [];
+                        selected.children("span").text("");
+                        selected.removeClass("marked");
+                    }
+                } else {
+                    n = parseInt(event.key);
+                    if (n) {
+                        selected.text(n);
+                        width = parseInt(welm.text());
+                        height = parseInt(helm.text());
+                        updateGrid();
+
+                        if (selected.is(welm)) {
+                            selected = helm;
+                        } else if (selected.is(helm)) {
+                            selected = welm;
+                        }
+
+                        updateSelection();
+                    }
+                }
+            });
+
+            function updateSelection() {
+                $(".selected").removeClass("selected");
+                if (selected && selected.length > 0) {
+                    selected.addClass("selected");
+                }
+            }
+
+            for (var i = 0; i < 8; i++) {
+                var row = $("<tr>").appendTo(grid);
+                for (var n = 0; n < 8; n++) {
+                    let cell = $("<td>").appendTo(row).click(function(event) {
+                        selected = $(this);
+                        updateSelection();
+
+                        event.stopPropagation();
+                    }).contextmenu(function(event) {
+                        var span = $(this).children("span");
+                        undos.push([{cell: $(this), state: span.text()}]);
+                        if (span.text() == "") {
+                            // $(".grid td.marked span").each(function() {
+                            //     if ($(this).text() == mark.toString()) {
+                            //         $(this).text("").parent().removeClass("marked");
+                            //     }
+                            // });
+                            span.text(mark);
+                            mark = Math.min(mark + 1, 8);
+                            $(".mark").text(mark);
+                            $(this).addClass("marked");
+                        } else {
+                            span.text("");
+                            $(this).removeClass("marked");
+                        }
+                        redos = [];
+
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }).append($("<span>"));
+                }
+            }
+
+            var width = parseInt(welm.text());
+            var height = parseInt(helm.text());
+            var mark = 1;
+
+            function updateGrid() {
+                width = Math.min(Math.max(width, 3), 8);
+                height = Math.min(Math.max(height, 3), 8);
+
+                welm.text(width);
+                helm.text(height);
+                grid.children().each(function(index) {
+                    var row = $(this);
+                    row.children().each(function(index2) {
+                        $(this).toggleClass("cell", index2 < width && index < height);
+                    });
+                });
+            }
+            updateGrid();
+
+            $(".width, .height").click(function(event) {
+                selected = $(this);
+                updateSelection();
+
+                event.stopPropagation();
+            });
+
+            function resetGrid() {
+                var undo = [];
+
+                $(".marked").each(function() {
+                    var cell = $(this);
+                    undo.push({
+                        cell: cell, state: cell[0].children[0].textContent
+                    });
+                    cell.removeClass("marked").children("span").text("");
+                });
+
+                undos.push(undo);
+            }
+
+            $(".reset").click(function() {
+                $(".width, .height").text(5);
+                width = 5;
+                height = 5;
+                updateGrid();
+                resetGrid();
+            });
+
+            $(".reset-grid").click(function() {
+                resetGrid();
+            });
+
+            $(".arrow-up").click(function() {
+                height--;
+                updateGrid();
+            });
+
+            $(".arrow-down").click(function() {
+                height++;
+                updateGrid();
+            });
+
+            $(".arrow-left").click(function() {
+                width--;
+                updateGrid();
+            });
+
+            $(".arrow-right").click(function() {
+                width++;
+                updateGrid();
+            });
+
+            $(".mark-down").click(function() {
+                if (mark > 1) {
+                    mark--;
+                    $(".mark").text(mark);
+                }
+            });
+
+            $(".mark-up").click(function() {
+                if (mark < 8) {
+                    mark++;
+                    $(".mark").text(mark);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="section">
+        <div class="left-wrapper">
+            <div class="center">
+                <table class="input-grid">
+                    <tr>
+                        <th>Marker</th>
+                        <td><button class="mark-down">←</button></td>
+                        <td><span class="mark">1</span></td>
+                        <td><button class="mark-up">→</button></td>
+                    </tr>
+                    <tr>
+                        <th>Grid Size</th>
+                        <td>Width</td>
+                        <th class="width">5</th>
+                        <td>Height</td>
+                        <th class="height">5</th>
+                    </tr>
+                </table>
+                <div class="grid-wrapper">
+                    <div style="grid-column: 2;">
+                        <button class="arrow-left">←</button> <button class="arrow-right">→</button>
+                    </div>
+                    <div style="grid-row: 2">
+                        <button class="arrow-up" style="margin-top: 0px;">↑</button>
+                        <br>
+                        <button class="arrow-down">↓</button>
+                    </div>
+                    <table class="grid"></table>
+                </div>
+                <button class="reset-grid">Reset Grid</button>
+                <button class="reset">Reset</button>
+                <table>
+                    <tr>
+                        <th>Input</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Backspace<br>Delete<br>Right-Click</td>
+                        <td>Clears a square.<div style="height: 5mm"></div>(Only if a number is present)</td>
+                    </tr>
+                    <tr>
+                        <td>1-8<br>Right-Click</td>
+                        <td>Marks a square with a number.<br>(Only if a number is absent)</td>
+                    </tr>
+                    <tr>
+                        <td>Z or Y</td><td>Undo or Redo.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Coordinates</span>
+            </div>
+            <div class="page-content">
+                <img class="diagram" src="img/Component/Coordinates.svg">
+                <h2>On the Subject of Coordinating Coordinates</h2>
+
+                <p class="flavour-text">Because people need to see to understand.</p>
+                <p>For those familiar with the original manual.</p>
+                <table style="text-align: center; color: black">
+                    <tr>
+                        <td class="bracket-com0">[0,0]</td>
+                        <td class="bracket-com">[1,0]</td>
+                        <td class="bracket-com">[2,0]</td>
+                        <td class="angle0">&lt;0,0&gt;</td>
+                        <td class="angle">&lt;0,1&gt;</td>
+                        <td class="angle">&lt;0,2&gt;</td>
+                        <td class="paren">(0,2)</td>
+                        <td class="paren">(1,2)</td>
+                        <td class="paren">(2,2)</td>
+                    </tr>
+                    <tr>
+                        <td class="bracket-com">[0,1]</td>
+                        <td class="bracket-com">[1,1]</td>
+                        <td class="bracket-com">[2,1]</td>
+                        <td class="angle">&lt;1,0&gt;</td>
+                        <td class="angle">&lt;1,1&gt;</td>
+                        <td class="angle">&lt;1,2&gt;</td>
+                        <td class="paren">(0,1)</td>
+                        <td class="paren">(1,1)</td>
+                        <td class="paren">(2,1)</td>
+                    </tr>
+                    <tr>
+                        <td class="bracket-com">[0,2]</td>
+                        <td class="bracket-com">[1,2]</td>
+                        <td class="bracket-com">[2,2]</td>
+                        <td class="angle">&lt;2,0&gt;</td>
+                        <td class="angle">&lt;2,1&gt;</td>
+                        <td class="angle">&lt;2,2&gt;</td>
+                        <td class="paren0">(0,0)</td>
+                        <td class="paren">(1,0)</td>
+                        <td class="paren">(2,0)</td>
+                    </tr>
+                    <tr>
+                        <td class="quote">"2,0"</td>
+                        <td class="quote">"2,1"</td>
+                        <td class="quote">"2,2"</td>
+                        <td class="bracket0">[0]</td>
+                        <td class="bracket">[1]</td>
+                        <td class="bracket">[2]</td>
+                        <td class="hash">#7</td>
+                        <td class="hash">#8</td>
+                        <td class="hash">#9</td>
+                    </tr>
+                    <tr>
+                        <td class="quote">"1,0"</td>
+                        <td class="quote">"1,1"</td>
+                        <td class="quote">"1,2"</td>
+                        <td class="bracket">[3]</td>
+                        <td class="bracket">[4]</td>
+                        <td class="bracket">[5]</td>
+                        <td class="hash">#4</td>
+                        <td class="hash">#5</td>
+                        <td class="hash">#6</td>
+                    </tr>
+                    <tr>
+                        <td class="quote0">"0,0"</td>
+                        <td class="quote">"0,1"</td>
+                        <td class="quote">"0,2"</td>
+                        <td class="bracket">[6]</td>
+                        <td class="bracket">[7]</td>
+                        <td class="bracket">[8]</td>
+                        <td class="hash0">#1</td>
+                        <td class="hash">#2</td>
+                        <td class="hash">#3</td>
+                    </tr>
+                    <tr>
+                        <td class="letnum0">A1</td>
+                        <td class="letnum">B1</td>
+                        <td class="letnum">C1</td>
+                        <td class="comma0">1,1</td>
+                        <td class="comma">1,2</td>
+                        <td class="comma">1,3</td>
+                        <td class="dash">A-3</td>
+                        <td class="dash">B-3</td>
+                        <td class="dash">C-3</td>
+                    </tr>
+                    <tr>
+                        <td class="letnum">A2</td>
+                        <td class="letnum">B2</td>
+                        <td class="letnum">C2</td>
+                        <td class="comma">2,1</td>
+                        <td class="comma">2,2</td>
+                        <td class="comma">2,3</td>
+                        <td class="dash">A-2</td>
+                        <td class="dash">B-2</td>
+                        <td class="dash">C-2</td>
+                    </tr>
+                    <tr>
+                        <td class="letnum">A3</td>
+                        <td class="letnum">B3</td>
+                        <td class="letnum">C3</td>
+                        <td class="comma">3,1</td>
+                        <td class="comma">3,2</td>
+                        <td class="comma">3,3</td>
+                        <td class="dash0">A-1</td>
+                        <td class="dash">B-1</td>
+                        <td class="dash">C-1</td>
+                    </tr>
+                    <tr>
+                        <td class="slash">3/1</td>
+                        <td class="slash">3/2</td>
+                        <td class="slash">3/3</td>
+                        <td class="gray0">1st</td>
+                        <td class="gray">2nd</td>
+                        <td class="gray">3rd</td>
+                        <td class="white">七</td>
+                        <td class="white">四</td>
+                        <td class="gray">一</td>
+                    </tr>
+                    <tr>
+                        <td class="slash">2/1</td>
+                        <td class="slash">2/2</td>
+                        <td class="slash">2/3</td>
+                        <td class="gray">4th</td>
+                        <td class="gray">5th</td>
+                        <td class="gray">6th</td>
+                        <td class="white">八</td>
+                        <td class="white">五</td>
+                        <td class="white">二</td>
+                    </tr>
+                    <tr>
+                        <td class="slash0">1/1</td>
+                        <td class="slash">1/2</td>
+                        <td class="slash">1/3</td>
+                        <td class="gray">7th</td>
+                        <td class="gray">8th</td>
+                        <td class="gray">9th</td>
+                        <td class="white">九</td>
+                        <td class="white">六</td>
+                        <td class="white">三</td>
+                    </tr>
+                </table>
+                <br>
+                <table style="text-align: center;">
+                    <tr>
+                        <th>Format</th>
+                        <th colspan="12">How to interpret</th>
+                    </tr>
+                    <tr>
+                        <th>n [w×h]</th>
+                        <th>9</th>
+                        <td>3×3</td>
+                        <th>15</th>
+                        <td>5×3</td>
+                        <th>21</th>
+                        <td>7×3</td>
+                        <th>25</th>
+                        <td>5×5</td>
+                        <th>35</th>
+                        <td>7×5</td>
+                        <th>49</th>
+                        <td>7×7</td>
+                    </tr>
+                    <tr>
+                        <th>(n) [w×h]</th>
+                        <th>9</th>
+                        <td>3×3</td>
+                        <th>15</th>
+                        <td>3×5</td>
+                        <th>21</th>
+                        <td>3×7</td>
+                        <th>25</th>
+                        <td>5×5</td>
+                        <th>35</th>
+                        <td>5×7</td>
+                        <th>49</th>
+                        <td>7×7</td>
+                    </tr>
+                    <tr>
+                        <th>w×h</th>
+                        <td colspan="12">w is the width, h the height of the grid.</td>
+                    </tr>
+                    <tr>
+                        <th>h by w</th>
+                        <td colspan="12">h is the height, w the width of the grid.</td>
+                    </tr>
+                    <tr>
+                        <th>n*h</th>
+                        <td colspan="12">n is the total size of the grid, w = n / h.</td>
+                    </tr>
+                    <tr>
+                        <th>n : w</th>
+                        <td colspan="12">n is the total size of the grid, h = n / w.</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 2</div>
+        </div>
+    </div>
+</body>
+
+</html>

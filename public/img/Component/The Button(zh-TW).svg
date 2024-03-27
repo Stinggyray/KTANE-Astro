@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="square" stroke-miterlimit="10" viewBox="0 0 348 348">
+  <clipPath id="a">
+    <path d="M0 0h348v348H0V0z"/>
+  </clipPath>
+  <g clip-path="url(#a)">
+    <path d="M0 0h348v348H0Z"/>
+    <path fill="#fff" d="M-6 0h348v348H-6Z"/>
+    <path d="M5 5.8h337v337.6H5Z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M5 5.8h337v337.6H5Z"/>
+    <path fill="#fff" d="M17 71.2h225.4v235.3H17Z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M17 71.2h225.4v235.3H17Z"/>
+    <path fill="#000" d="M273.5 110h46.2v196.5h-46.2z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M273.5 110h46.2v196.5h-46.2z"/>
+    <path fill="#fff" d="M282.7 40.6c0-8.4 7-15.2 15.6-15.2 4.1 0 8 1.6 11 4.4a15 15 0 0 1 4.6 10.8c0 8.3-7 15.1-15.6 15.1s-15.6-6.8-15.6-15.1z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M282.7 40.6c0-8.4 7-15.2 15.6-15.2 4.1 0 8 1.6 11 4.4a15 15 0 0 1 4.6 10.8c0 8.3-7 15.1-15.6 15.1s-15.6-6.8-15.6-15.1z"/>
+    <path fill="#fff" d="M31.6 188.8c0-54.9 44-99.4 98.1-99.4 26 0 51 10.4 69.4 29 18.5 18.8 28.8 44 28.8 70.4 0 55-44 99.5-98.2 99.5a98.8 98.8 0 0 1-98.1-99.5z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M31.6 188.8c0-54.9 44-99.4 98.1-99.4 26 0 51 10.4 69.4 29 18.5 18.8 28.8 44 28.8 70.4 0 55-44 99.5-98.2 99.5a98.8 98.8 0 0 1-98.1-99.5z"/>
+    <path d="M45.4 153.5H248v70.7H45.4Z"/>
+    <path d="M41 96h177.9v185.7h-178Z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" d="M41 96h177.9v185.7h-178Z"/>
+    <path d="m17.7 72.9 23.5 23"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" d="m17.7 72.9 23.5 23"/>
+    <path d="m219.1 281.7 23 24.3"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" d="m219.1 281.7 23 24.3"/>
+    <path d="m242.2 72.9-22.7 23"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" d="m242.2 72.9-22.7 23"/>
+    <path d="m40.8 281.7-22.7 23"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" d="m40.8 281.7-22.7 23"/>
+    <path d="M55.2 58.9h26v12.3h-26Z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M55.2 58.9h26v12.3h-26Z"/>
+    <path d="M180.3 58.9h26v12.3h-26z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M180.3 58.9h26v12.3h-26z"/>
+    <path d="M84.1 63.4h92.3v7.8H84Z"/>
+    <path stroke="#000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="2" d="M84.1 63.4h92.3v7.8H84Z"/>
+  </g>
+  <path fill="#000" d="M62.8 171h8.7v3h-4.9v31.6h5v3h-8.8zm47.7 25.4q-8.2 7-17 9.7l-1.4-4q8.7-2.4 15.6-8.3-5.7-6.2-7.7-14.4h-8v-3.1h16V170h3.6q1.6.4.1 1.3v5h16v3h-7.8q-1.3 7.8-6.8 14.5 5.7 5.1 15.2 7.6l-1.5 3.9q-8.3-2.1-16.2-8.9zm-.2-5.2q5-6 6.1-11.8h-12.8q1 5.6 6.7 11.8zm43.7-3v2.2h16v3h-16v9.6q0 2.6-2.7 2.6H147l-.8-3h4q.6 0 .6-.7v-8.4h-17v-3.1h17V186l1.6.3 4.6-3h-15.7v-3.2h19l.7-.7 2.7 2.8-1 .4zm-.2-14.6h15.3v8.2h-3.3v-5H138v5.4h-3.3v-8.6H150v-4.4h3.6q1.7.3.2 1.3zm45.3-2.6v37.5h-8.6v-2.9h4.9V174h-5v-3z" aria-label="[ 文字 ]" font-family="&quot;DejaVu Sans&quot;,sans-serif" font-size="42" text-anchor="middle"/>
+</svg>
