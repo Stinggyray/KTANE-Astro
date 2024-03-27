@@ -6,7 +6,7 @@ import ModuleList from "./ModuleList.tsx";
 
 const MainPage = () => {
 	const phraseCount = phrases.length;
-	const [phrase, setPhrase] = useState("Loading your mother...");
+	const [phrase, setPhrase] = useState("");
 	const [activeUser, setActiveUser] = useState("Sting");
 	const [view, setView] = useState("compact");
 	const [optimized, setOptimized] = useState(true);
