@@ -20,7 +20,6 @@
     "FlavorTextCruel",
     "HumanResourcesModule",
     "calcModule",
-    "iceCreamModule",
     "fizzBuzzModule",
     "Color Generator",
     "MorseAMaze",
@@ -54,7 +53,6 @@
     "subways",
     "FaultySink",
     "Sink",
-    "algebra",
     "poetry",
     "theSwan",
     "BlackHoleModule",
@@ -70,12 +68,10 @@
     "TwoBits",
     "TurnTheKeyAdvanced",
     "TurnTheKey",
-    "WhosOnFirstTranslated",
     "TicTacToeModule",
     "ThirdBase",
     "screw",
     "TheClockModule",
-    "TheGamepadModule",
     "TheBulbModule",
     "TextField",
     "switchModule",
@@ -97,8 +93,7 @@
     "MinesweeperModule",
     "Logic",
     "Listening",
-    "LightCycleModule",
-    "LEDEnc",
+    "LetterKeys",
     "ButtonV2",
     "MazeV2",
     "MemoryV2",
@@ -119,7 +114,6 @@
     "CaesarCipherModule",
     "BrokenButtonsModule",
     "booleanVennModule",
-    "BitOps",
     "BitmapsModule",
     "BattleshipModule",
     "AnagramsModule",
@@ -136,7 +130,8 @@
     "NotColoredSquaresModule",
     "UncoloredSquaresModule",
     "VaricoloredSquaresModule",
-    "SouvenirModule"
+    "SouvenirModule",
+    "algebra"
   ],
   "EnabledList": [
     "jukebox",
@@ -173,7 +168,12 @@
     "KeypadV2",
     "PasswordsTranslated",
     "Emoji Math",
-    "LetterKeys"
+    "BitOps",
+    "WhosOnFirstTranslated",
+    "iceCreamModule",
+    "LEDEnc",
+    "LightCycleModule",
+    "TheGamepadModule"
   ],
   "Operation": 0
 }
