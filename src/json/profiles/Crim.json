@@ -49,7 +49,6 @@
     "algebra",
     "theSwan",
     "MafiaModule",
-    "Painting",
     "iPhone",
     "PerplexingWiresModule",
     "logicGates",
@@ -134,7 +133,27 @@
     "impostor",
     "LightsOut",
     "BlackHoleModule",
-    "krazyTalk"
+    "krazyTalk",
+    "NotXRayModule",
+    "XRayModule",
+    "visual_impairment",
+    "symbolicCoordinates",
+    "SymbolCycleModule",
+    "sonic",
+    "skyrim",
+    "SetModule",
+    "PolyhedralMazeModule",
+    "Poker",
+    "mortalKombat",
+    "modernCipher",
+    "Mastermind Simple",
+    "Mastermind Cruel",
+    "maintenance",
+    "identityParade",
+    "GridlockModule",
+    "GameOfLifeCruel",
+    "GameOfLifeSimple",
+    "BrailleModule"
   ],
   "EnabledList": [
     "poetry",
@@ -175,7 +194,11 @@
     "MorseCodeTranslated",
     "PasswordsTranslated",
     "BitmapsModule",
-    "ThirdBase"
+    "ThirdBase",
+    "curriculum",
+    "ledGrid",
+    "NonogramModule",
+    "Painting"
   ],
   "Operation": 0
 }

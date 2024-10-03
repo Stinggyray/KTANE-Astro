@@ -159,11 +159,34 @@
     "greatVoid",
     "primeEncryption",
     "NotColoredSquaresModule",
-    "LightsOut"
+    "LightsOut",
+    "buttonMasherNeedy",
+    "krazyTalk",
+    "NotXRayModule",
+    "XRayModule",
+    "visual_impairment",
+    "symbolicCoordinates",
+    "SymbolCycleModule",
+    "sonic",
+    "skyrim",
+    "SetModule",
+    "PolyhedralMazeModule",
+    "Poker",
+    "NonogramModule",
+    "mortalKombat",
+    "modernCipher",
+    "Mastermind Cruel",
+    "maintenance",
+    "ledGrid",
+    "identityParade",
+    "GridlockModule",
+    "GameOfLifeCruel",
+    "GameOfLifeSimple",
+    "curriculum",
+    "BrailleModule"
   ],
   "EnabledList": [
     "BattleshipModule",
-    "buttonMasherNeedy",
     "NeedyBeer",
     "needycrafting",
     "VentGasTranslated",
@@ -174,7 +197,8 @@
     "TurnTheKeyAdvanced",
     "WordScrambleModule",
     "TDSAmogus",
-    "impostor"
+    "impostor",
+    "Mastermind Simple"
   ],
   "Operation": 0
 }

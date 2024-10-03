@@ -10,7 +10,13 @@ import jessie from "./profiles/Jessie.json";
 import kylerAndVince from "./profiles/Kyler_and_Vince.json";
 
 import centurion from "./profiles/Centurion.json";
+import praetorian from "./profiles/Praetorian.json";
 import vanillas from "./profiles/Vanilla.json";
+
+const praetorianPlusVanillas = {
+	EnabledList: praetorian.EnabledList.concat(vanillas.EnabledList),
+	DisabledList: praetorian.DisabledList,
+}
 
 import modules from "./modules.json";
 
@@ -124,12 +130,28 @@ const universalAltManuals: Record<string, string> = {
 	"Wire Placement": "Wire Placement embellished (Timwi)",
 	"Word Search": "Word Search lookup table (Elias)",
 	"Zoo": "Zoo embellished (samfundev)",
+	"Braille": "Braille interactive (samfundev)",
+	"Color Morse": "Color Morse lookup table (Quinn Wuest & ZekNikZ)",
+	"Gridlock": "Gridlock interactive (samfundev)",
+	"Hunting": "Hunting optimized (samfundev)",
+	"Identity Parade": "Identity Parade lookup table (ZekNikZ)",
+	"The iPhone": "The iPhone in color (LuminoscityTim)",
+	"Maintenance": "Maintenance lookup table (Catcher_10, MageMage, Wheaty)",
+	"Monsplode Trading Cards": "Monsplode Trading Cards optimized (Blananas2)",
+	"Nonogram": "Nonogram interactive (samfundev)",
+	"Painting": "Painting optimized (Funnyflywheel & Lebossle)",
+	"Poetry": "Poetry rearranged (tandyCake)",
+	"Radiator": "Radiator condensed (ZekNikZ)",
+	"Sink": "Sink optimized (Quinn Wuest)",
+	"The Swan": "The Swan lookup table (ZekNikZ)",
 };
 const stingAltManuals: Record<string, string> = {};
 const yoshiAltManuals: Record<string, string> = {
 	"Perplexing Wires": "Perplexing Wires",
 	"Piano Keys": "Piano Keys condensed (LeGeND)",
 	"Logic": "Logic optimized (LeGeND)",
+	"Festive Piano Keys": "Festive Piano Keys optimized (Quinn Wuest)",
+	"Flags": "Flags optimized (Timwi)",
 };
 const emmaAltManuals: Record<string, string> = {};
 const psAltManuals: Record<string, string> = {};
@@ -225,11 +247,17 @@ const profiles: {
 		altManuals: {},
 		gradient: "from-gray-400 to-gray-500",
 	},
+	Praetorian: {
+		name: "Praetorian",
+		profile: praetorianPlusVanillas as Profile,
+		altManuals: {},
+		gradient: "from-gray-500 to-gray-600",
+	},
 	Vanillas: {
 		name: "Vanillas",
 		profile: vanillas as Profile,
 		altManuals: vanillasAltManuals,
-		gradient: "from-gray-500 to-gray-600",
+		gradient: "from-gray-600 to-gray-700",
 	},
 };
 

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Poker — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <script src="js/jquery.3.7.0.min.js"></script>
+    <script src="js/Utilities/svg-utils.js"></script>
+    <script>
+    $(function() {
+        const cardValues = {A: "Ace", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine", T: "Ten", J: "Jack", Q: "Queen", K: "King"};
+        const cardSuits = {S: "Spades", C: "Clubs", H: "Hearts", D: "Diamonds"};
+
+        function GetWords(shortened) {
+            return cardValues[shortened.charAt(0)] + " of " + cardSuits[shortened.charAt(1)];
+        }
+
+        const positionNames = [ "FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH" ];
+        const charts = [ "#ace", "#king", "#five", "#two" ];
+        const cards = [ [["AS"],["3S","JD"],["5S","9H","JC","4C"],["2S","3D","QC","AD","JS","AH","6D","QD"],["4S","8S","3C","AC","JD","3D","AC","6H","JH","AH","2C","AC","3C","4S","TS","AC"]],
+                        [["KH"],["4C","3D"],["4H","AH","3S","4H"],["4S","KS","2C","QS","2D","7S","TC","2H"],["4D","KC","3C","KC","3S","4D","3C","5C","9C","3H","2C","7D","KC","QS","AH","9C"]],
+                        [["5D"],["3C","9D"],["2S","9H","4D","6D"],["AH","6H","TS","JS","KD","AD","7D","5C"],["4D","6D","4S","3D","JC","9S","QH","5H","KH","QD","2D","6S","8D","8H","5S","6S"]],
+                        [["2C"],["6C","3H"],["TC","AS","4H","KH"],["JH","JC","2D","6H","5S","6H","KC","4D"],["QC","2D","4C","KC","6D","2H","AH","7S","6C","5D","5H","KH","3S","KS","JC","2D"]] ];
+        const conditions = [[["Are there three|or more batteries?"],["Is there a lit FRK|or BOB indicator?","Does the serial|contain a vowel?"],["Do the digits of the serial|total an even number?","Are there more D batteries|than AA batteries?","Is there an unlit CAR|indicator?","Is there a serial port?"],["Is there an RJ-45 port?","Is there a PS/2 port?","Does the serial contain a vowel?","Is the last digit of the serial even?","Is there a DVI-D port?","Is there a parallel port?","Is there an unlit SND or TRN indicator?","Is there a lit SIG or FRQ indicator?"]],
+                            [["Do the digits of the serial|total an odd number?"],["Are there any batteries?","Is there a parallel port?"],["Is there a lit IND, MSA|or TRN indicator?","Is there a PS/2 or DVI-D|port?","Are there three or|fewer AA batteries?","Is there an unlit BOB or|FRQ indicator?"],["Is there a Stereo RCA port?","Is there an RJ-45 and a Serial port?","Is there a lit SND indicator?","Is there an unlit TRN or FRK indicator?","Is there an unlit MSA or a lit NSA indicator?","Is there a lit FRQ indicator?","Are there more AA than D batteries?","Are there five or fewer batteries?"]],
+                            [["Are there more AA|batteries than D batteries?"],["Does the serial|contain a vowel?","Is the last digit of the|serial an odd number?"],["Is there more than|one port?","Is there a PS/2|or an RJ-45 port?","Is there a lit BOB or an|unlit FRQ or SIG indicator?","Are there any lit|indicators?"],["Is there an unlit CLR or a lit CAR indicator?","Is there a lit MSA or unlit NSA indicator?","Are there any unlit indicators?","Is there an unlit CLR indicator?","Are there any ports?","Is there a parallel port?","Are there fewer than three ports?","Is there a Stereo RCA and a DVI-D port?"]],
+                            [["Is there a lit TRN, BOB|or IND indicator?"],["Are there five or fewer|batteries?","Does the serial contain|an even number of letters?"],["Is there a DVI-D or a Stereo|RCA port?","Do the digits of the serial|add up to more than twelve?","Is there a parallel port|and a serial port?","Is there an RJ-45 port?"],["Is the last letter of the serial a consonant?","Is the last digit of the serial odd?","Is there a PS/2 and a parallel port?","Are there three or fewer ports?","Are there more AA than D batteries?","Are there more D than AA batteries?","Are there more than two D batteries?","Are there more than two batteries?"]] ];
+        const conditionOffsets = [42, 42, 43, 53];
+        const yesNoHorizOffsets = [0.5, 1.5, 2.5, 10];
+        const yesNoVertOffsets = [10, 3, 0, -0.7];
+
+        for (let chart = 0; chart < 4; chart++) {
+            let diagram = $(charts[chart]);
+
+            for (let card = 5; card > 0; card--) {
+                let xOrigin = 0.1 + 30 * (card - 1);
+                if (card === 5) xOrigin += 28;
+
+                let positionHeading = MakeSvgElem("text", { x:xOrigin + 11.75, y:3, "text-decoration": "underline" }, positionNames[card - 1] + " CARD");
+                diagram.append(positionHeading);
+
+                for (let i = 0; i < (2 ** (card - 1)); i++) {
+                    let yOrigin = (2 ** (5 - card)) * (6 * i + 3);
+                    let columnCell = MakeSvgElem("rect", { class: "highlightable", x: xOrigin, y: yOrigin + 4, height: 3, width: 23.5 });
+                    let columnCellText = MakeSvgElem("text", { x: xOrigin + 11.75, y: yOrigin + 6.2 }, GetWords(cards[chart][card - 1][i]));
+                    diagram.append(columnCell);
+                    diagram.append(columnCellText);
+
+                    if (card != 1) {
+                        let xStart = 23.6 + 30 * (card - 2);
+                        let yStart = (2 ** (6 - card)) * (6 * Math.floor(i / 2) + 3) + 4.1;
+                        let vertOffset = yesNoVertOffsets[card - 2];
+                        if (i % 2 === 1) {
+                            yStart += 2.8;
+                            vertOffset *= -1;
+                        }
+                        vertOffset += 6.5;
+                        
+                        let arrow = MakeSvgElem("line", { x1:xStart, y1:yStart, x2:xOrigin - 0.2, y2:yOrigin + 5.5, class: "pointer", "marker-end":"url(#arrow)"});
+                        let yesNoText = MakeSvgElem("text", { x:xStart + yesNoHorizOffsets[card - 2] , y:yOrigin + vertOffset }, i % 2 === 0 ? "YES" : "NO")
+                        diagram.append(arrow);
+                        diagram.append(yesNoText);
+                    }
+                    if (card != 5) {
+                        let condition = conditions[chart][card - 1][i];
+                        let offset = conditionOffsets[card - 1];
+
+                        if (condition.includes("|")) {
+                            let splitCondition = condition.split("|")
+
+                            diagram.append(MakeSvgElem("text", { x:xOrigin + offset, y:yOrigin + 4.45 }, splitCondition[0]));
+                            diagram.append(MakeSvgElem("text", { x:xOrigin + offset, y:yOrigin + 7.95 }, splitCondition[1]));
+                        }
+                        else diagram.append(MakeSvgElem("text", { x:xOrigin + offset, y:yOrigin + 6.2 }, condition));
+                    }
+                }
+            }
+        }
+    });
+    </script>
+    <style> 
+        div.compact p { margin: .1em; }
+
+        svg.flowchart { scale: 125%; }
+
+        svg.flowchart text {
+            font-size: 2.5px;
+            text-anchor: middle;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        svg.flowchart rect {
+            fill: #DDD;
+            stroke-width: 0.2;
+            stroke: #000;
+        }
+        .dark svg.flowchart rect { fill: #444; stroke: #DDD; }
+        .dark svg text, .dark svg marker path { fill: #DDD; }
+        .dark svg.flowchart .pointer { stroke: #DDD; }
+
+        svg.flowchart .pointer {
+            stroke: #000;
+            stroke-width: 0.5;
+        }
+ 
+        table.bluff-or-truth { border: none; }
+        table.bluff-or-truth th.response { text-align: left; }
+        table.bluff-or-truth th.vert {
+            width: 22px;
+            padding: .3em .2em 0;
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+            letter-spacing: -1px;
+        }
+
+        h3 { margin-top: 1em; }
+
+        .dark td img { filter: invert(87%); }
+        
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Poker</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Poker.svg" class="diagram">
+                <h2>On the Subject of Poker</h2>
+                <p class="flavour-text">
+                    Usually in poker, the wrong call means losing a lot of money. Here, it means death.
+                </p>
+
+                <p><i>SEE APPENDIX PK71 FOR POKER HAND RANKINGS.</i></p>
+
+                <div class="compact">
+                    <p>The module will display a single face-up card.</p>
+                    <p>You must push two of the buttons and one of the face-down cards in order to disarm it.</p>
+                    <p>Use the given card to determine which of the four flow charts you should use.</p>
+                    <p>Use the flow charts to determine your 5-card poker hand and press the appropriate button.</p>
+                    <p>Your opponent will then respond. Use the two-way table to determine whether the response is the “truth” or a “bluff”.</p>
+                    <p>Your opponent will then make a bet. Use the betting rules to determine which of the four final cards you should press.</p>
+                </div>
+                <ul>
+                    <li>If you have NO HAND, press FOLD.</li>
+                    <li>If you have A PAIR or TWO PAIR, press CHECK.</li>
+                    <li>If you have THREE OF A KIND or A STRAIGHT, press MIN RAISE.</li>
+                    <li>If you have A FLUSH or A FULL HOUSE, press MAX RAISE.</li>
+                    <li>If you have FOUR OF A KIND or A STRAIGHT FLUSH, press ALL-IN.</li>
+                </ul>
+                <h3>Flow Charts</h3>
+                <h4>Ace of Spades:</h4>
+                <svg id="ace" viewbox="-20 -25 210 150" class="flowchart">
+                    <marker id="arrow" class="pointer" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="3" markerHeight="3" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 L 3 5 z"/> 
+                    </marker> 
+                </svg>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 6</div>
+        </div>
+
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Poker</span>
+            </div>
+            <div class="page-content">
+                <h4>King of Hearts:</h4>
+                <svg id="king" viewbox="-20 -25 210 150" class="flowchart"></svg>
+
+                <h4>Five of Diamonds:</h4>
+                <svg id="five" viewbox="-20 -25 210 150" class="flowchart"></svg>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 6</div>
+        </div>
+
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Poker</span>
+            </div>
+            <div class="page-content">
+                <h4>Two of Clubs:</h4>
+                <svg id="two" viewbox="-20 -25 210 150" class="flowchart"></svg>
+                <h3>Bluff or Truth?</h3>
+                <table class="bluff-or-truth">
+                    <tr><th colspan="4">Starter card</th><td class="corner" colspan="2" rowspan="2"></td></tr>
+                    <tr><th>Ace</th><th>King</th><th>Five</th><th>Two</th></tr>
+                    <tr>
+                        <td>Truth</td><td>Truth</td><td>Truth</td><td>Bluff</td><th class="response">“Terrible play!”</th>
+                        <th rowspan="6" class="vert">Opponent Response</th>
+                    </tr>
+                    <tr><td>Bluff</td><td>Truth</td><td>Truth</td><td>Bluff</td><th class="response">“Awful play!”</th></tr>
+                    <tr><td>Truth</td><td>Bluff</td><td>Bluff</td><td>Bluff</td><th class="response">“Really?”</th></tr>
+                    <tr><td>Bluff</td><td>Bluff</td><td>Truth</td><td>Bluff</td><th class="response">“Really, really?”</th></tr>
+                    <tr><td>Truth</td><td>Bluff</td><td>Bluff</td><td>Truth</td><th class="response">“Sure about that?”</th></tr>
+                    <tr><td>Bluff</td><td>Truth</td><td>Truth</td><td>Truth</td><th class="response">“Are you sure?”</th></tr>
+                </table>
+            </div>
+            <div class="page-footer relative-footer">Page 3 of 6</div>
+        </div>
+
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Poker</span>
+            </div>
+            <div class="page-content">
+
+                <h3>Betting Rules</h3>
+                <h4>$25 Bet:</h4>
+                <span class="highlightable">If the first card is red and there is a lit BOB indicator, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said “Awful play!” and the starter card was the Ace of Spades, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if there is an unlit FRQ indicator and the fourth card is black, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if there is at least one diamond and your opponent said “Really?” or “Really, really?”, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if the fourth card is a spade and there are more than four batteries, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if the third card is a diamond and the second card is not a club, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said “Are you sure?” and the starter card was the Two of Clubs, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if the starter card was the Five of Diamonds, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if the second card is a club and there is no RJ-45 port, press the second card.</span><br>
+                <span class="highlightable">Otherwise, press the first card.</span><br>
+                <h4>$50 Bet:</h4>
+                <span class="highlightable">If your opponent said “Sure about that?” and the fourth card is a heart, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if there are no clubs and the starter card was the Two of Clubs, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if a heart appears anywhere above a spade and there are no diamonds press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if the first card is a heart and the starter card was not the King of Hearts, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said “Really, really?” and the first or second card are hearts, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if the starter card was the Five of Diamonds and there is a parallel port, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if there is a lit TRN indicator and there is at least one black card, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said “Terrible play!”, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if the digits of the serial number add up to less than ten press the first card.</span><br>
+                <span class="highlightable">Otherwise, press the third card.</span><br>
+            </div>
+            <div class="page-footer relative-footer">Page 4 of 6</div>
+        </div>
+
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Poker</span>
+            </div>
+            <div class="page-content">
+
+                <h4>$100 Bet:</h4>
+                <span class="highlightable">If your opponent said “Really, really?”, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said, “Really?”, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if there are no D batteries and the starter card was the Ace of Spades, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if the digits of the serial number add up to a prime number and there is at least one heart, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if a club and a spade appear and your opponent said “Sure about that?”, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if a club and a spade appear next to each other, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if there is an unlit MSA indicator, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if there is at least one diamond, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said “Awful play!”, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, press the second card.</span><br>
+                <h4>$500 Bet:</h4>
+                <span class="highlightable">If there is more than one club, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if the serial number contains a vowel and there is at least one spade, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if there are no ports and there is at least one heart, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if there are no red cards, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said “Are you sure?”, press the fourth card.</span><br>
+                <span class="highlightable">Otherwise, if there are no lit indicators and the first card is a heart, press the third card.</span><br>
+                <span class="highlightable">Otherwise, if there is at least one unlit indicator and the second card is a club, press the second card.</span><br>
+                <span class="highlightable">Otherwise, if your opponent said “Really?” and there are no black cards, press the first card.</span><br>
+                <span class="highlightable">Otherwise, if there is more than one D battery, press the third card.</span><br>
+                <span class="highlightable">Otherwise, press the fourth card.</span><br>
+            </div>
+            <div class="page-footer relative-footer">Page 5 of 6</div>
+        </div>
+
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Poker</span>
+            </div>
+            <div class="page-content">
+                <h2>Appendix PK71</h2>
+                <p>
+                    Poker hands are ranked (strongest to weakest) as follows:
+                </p>
+                <br>
+                <table>
+                    <tr>
+                        <td><img src="img/Poker/RoyalFlush.png" height="70" width="100"></td>
+                        <td>
+                            <u>Royal Flush</u><br>
+                            Ten, Jack, Queen, King, Ace of the same suit.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/StraightFlush.png" height="70" width="100"></td>
+                        <td>
+                            <u>Straight Flush</u><br>
+                            Five consecutive values of the same suit.<br>
+                            (N.B. Aces can be high or low but not both simultaneously).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/Fours.png" height="70" width="100"></td>
+                        <td>
+                            <u>Four of a Kind (Quads)</u><br>
+                            Four cards of the same value.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/FullHouse.png" height="70" width="100"></td>
+                        <td>
+                            <u>Full House</u><br>
+                            Three cards of the same value and two cards of another value.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/Flush.png" height="70" width="100"></td>
+                        <td>
+                            <u>Flush</u><br>
+                            Five cards of the same suit.<br>
+                            (N.B. In the event two flushes are held, the highest card wins).<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/Straight.png" height="70" width="100"></td>
+                        <td>
+                            <u>Straight</u><br>
+                            Five consecutive values of any suit.<br>
+                            (N.B. Aces can be high or low but not both simultaneously).<br>
+                            (N.B. In the event two straights are held, the highest card wins).<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/Trips.png" height="70" width="100"></td>
+                        <td>
+                            <u>Three of a Kind (Trips)</u><br>
+                            Three cards of the same value.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/TwoPair.png" height="70" width="100"></td>
+                        <td>
+                            <u>Two Pair</u><br>
+                            Two cards of the same value and two cards of another value.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/Pair.png" height="70" width="100"></td>
+                        <td>
+                            <u>Pair</u><br>
+                            Two cards of the same value.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Poker/NoHand.png" height="70" width="100"></td>
+                        <td>
+                            <u>No Hand</u><br>
+                            No matching values.<br>
+                            (N.B. In the event that two players have no hand, the highest card wins).<br>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="page-footer relative-footer">Page 6 of 6</div>
+        </div>
+    </div>
+</body>
+</html>

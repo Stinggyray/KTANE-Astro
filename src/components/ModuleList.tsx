@@ -4,6 +4,11 @@ import profiles, {
 } from "../json/profiles.ts";
 import { useState } from "react";
 
+const manualPages = Object.keys(import.meta.glob('../../public/*.html')).map(
+	(e) => e.replace("../../public/", "").replace(".html", "")
+);
+console.log(manualPages);
+
 interface Props {
 	profile: TranscodedProfile;
 	view: string;
@@ -35,6 +40,11 @@ const ModuleList = (props: Props) => {
 			module.moduleName.toLowerCase().includes(query.toLowerCase())
 		);
 	}
+
+	profile = profile.map((entry) => {
+		entry.pageExists = manualPages.includes(entry.manualLink);
+		return entry;
+	});
 
 	return (
 		<div id="{{name}}" className="mb-5">
@@ -124,11 +134,13 @@ const ModuleList = (props: Props) => {
 											linksInNewTab ? "_blank" : "_self"
 										}
 										className={`page-link font-medium ${
-											module.manualLink ===
-												module.originalManualLink ||
-											!optimized
+											module.pageExists ? (
+												module.manualLink ===
+												module.originalManualLink || !optimized
 												? "text-gray-300"
 												: "text-green-300"
+											)
+											: "text-red-300"
 										}`}
 									>
 										{module.moduleName}
