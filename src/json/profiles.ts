@@ -145,6 +145,9 @@ const universalAltManuals: Record<string, string> = {
 	"Radiator": "Radiator condensed (ZekNikZ)",
 	"Sink": "Sink optimized (Quinn Wuest)",
 	"The Swan": "The Swan lookup table (ZekNikZ)",
+	"Game of Life Simple": "Game of Life Simple interactive (samfundev)",
+	"Game of Life Cruel": "Game of Life Cruel interactive (samfundev)",
+
 };
 const stingAltManuals: Record<string, string> = {};
 const yoshiAltManuals: Record<string, string> = {
