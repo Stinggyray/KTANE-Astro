@@ -19,7 +19,6 @@
     "keypadLock",
     "kookyKeypadModule",
     "subways",
-    "timezone",
     "troll",
     "TurnTheKey",
     "TurnTheKeyAdvanced",
@@ -50,19 +49,11 @@
     "MarbleTumbleModule",
     "krazyTalk",
     "NotXRayModule",
-    "XRayModule",
-    "visual_impairment",
-    "symbolicCoordinates",
-    "SymbolCycleModule",
     "sonic",
     "skyrim",
-    "mortalKombat",
-    "modernCipher",
     "Mastermind Simple",
     "Mastermind Cruel",
-    "maintenance",
-    "GameOfLifeCruel",
-    "GameOfLifeSimple"
+    "BlackHoleModule"
   ],
   "EnabledList": [
     "primeEncryption",
@@ -173,7 +164,6 @@
     "CreationModule",
     "spwizPerspectivePegs",
     "RubiksCubeModule",
-    "BlackHoleModule",
     "webDesign",
     "GridlockModule",
     "buttonSequencesModule",
@@ -198,7 +188,17 @@
     "BigCircle",
     "algebra",
     "theSwan",
-    "FaultyBackgrounds"
+    "FaultyBackgrounds",
+    "XRayModule",
+    "symbolicCoordinates",
+    "SymbolCycleModule",
+    "maintenance",
+    "timezone",
+    "visual_impairment",
+    "modernCipher",
+    "mortalKombat",
+    "GameOfLifeCruel",
+    "GameOfLifeSimple"
   ],
   "Operation": 0
 }

@@ -8,6 +8,7 @@ import victoria from "./profiles/Victoria.json";
 import bones from "./profiles/Bones.json";
 import jessie from "./profiles/Jessie.json";
 import kylerAndVince from "./profiles/Kyler_and_Vince.json";
+import lana from "./profiles/Lana.json";
 
 import centurion from "./profiles/Centurion.json";
 import praetorian from "./profiles/Praetorian.json";
@@ -172,6 +173,7 @@ const terpAltManuals: Record<string, string> = {};
 const kylerAltManuals: Record<string, string> = {};
 const bonesAltManuals: Record<string, string> = {};
 const jessieAltManuals: Record<string, string> = {};
+const lanaAltManuals: Record<string, string> = {};
 
 const profiles: {
 	[key: string]: {
@@ -217,10 +219,16 @@ const profiles: {
 		altManuals: terpAltManuals,
 		gradient: "from-sky-400 to-blue-400",
 	},
-	Victoria: {
-		name: "Victoria",
-		profile: victoria as Profile,
-		altManuals: victoriaAltManuals,
+	// Victoria: {
+	// 	name: "Victoria",
+	// 	profile: victoria as Profile,
+	// 	altManuals: victoriaAltManuals,
+	// 	gradient: "from-blue-400 to-fuchsia-400",
+	// },
+	Lana: {
+		name: "Lana",
+		profile: lana as Profile,
+		altManuals: lanaAltManuals,
 		gradient: "from-blue-400 to-fuchsia-400",
 	},
 	Bones: {
