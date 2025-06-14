@@ -1,0 +1,53 @@
+ul {
+    padding-left: 1em;
+}
+
+li {
+    margin: .7em 0;
+}
+
+table.grid {
+    margin: 3em auto 0;
+    font-size: 14pt;
+    font-family: 'Special Elite';
+    table-layout: fixed;
+}
+    table.grid td {
+        text-align: center;
+        width: 1.2cm;
+        height: 1.2cm;
+        padding: 0;
+    }
+
+.ruleseed-active .seedable {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+span.footnote-marker {
+    vertical-align: super;
+    font-size: 70%;
+}
+p.footnote {
+    font-size: 70%;
+}
+div.footnotes {
+    position: relative;
+    margin-top: 2em;
+    padding-top: 1em;
+}
+div.footnotes:before {
+    border-top: 1px solid black;
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 50mm;
+    content: '';
+}
+.dark div.footnotes:before {
+    border-top-color: #ddd;
+}
+.dark svg text tspan, .dark svg path.dots {
+    fill: #DDD;
+}
+.dark svg path { stroke: #DDD; }

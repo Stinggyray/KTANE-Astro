@@ -1,0 +1,3 @@
+svg { width: 70%; }
+.dark svg text { fill: #DDD; }
+.dark svg :is(path, circle) { stroke: #DDD; }

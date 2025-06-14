@@ -1,0 +1,10 @@
+math {
+    white-space: nowrap;
+}
+
+img:not(.diagram) {
+    width: 190px;
+}
+.dark img:not(.diagram) {
+    filter: invert(84.6%);
+}

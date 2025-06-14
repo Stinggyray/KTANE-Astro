@@ -1,6 +1,25 @@
 /* Library for array manipulation utilities. */
 
 /**
+ * Selects the indices of elements in an iterable that satisfy a given predicate.
+ * 
+ * @param {Iterable} source - The source iterable to search through.
+ * @param {Function} predicate - A test function that takes an element and returns a boolean for whether the element passes the test.
+ * @returns {Array<number>} An array of indices where the predicate is true.
+ */
+function SelectIndexWhere(source, predicate) {
+    let indices = [];
+    let i = 0;
+    for (const item of source) {
+        if (predicate(item)) {
+            indices.push(i);
+        }
+        i++;
+    }
+    return indices;
+}
+
+/**
  * Shuffle an array in place using the Fisher-Yates method.
  * @param {array} list - Array to be shuffled.
  * @returns {array} Another reference to the shuffled array.
@@ -61,4 +80,9 @@ function MinElement(arr, func) {
         return min;
     }
     return null;
+}
+
+// usage: array.filter(FilterOnlyUnique);
+function FilterOnlyUnique(value, index, array) {
+    return array.indexOf(value) === index;
 }

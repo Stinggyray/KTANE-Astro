@@ -6,10 +6,12 @@
  * @example {class:"highlightable", r:5, cx:4, cy:12}
  * @returns {HTMLElement} The generated tag with the provided attributes.
  */
- function MakeSvgElem(tag, attrs) {
+function MakeSvgElem(tag, attrs, inner = null) {
     let el = document.createElementNS('http://www.w3.org/2000/svg', tag);
     for (let k in attrs)
         el.setAttribute(k, attrs[k]);
+    if (inner != null)
+        el.innerHTML = inner;
     return el;
 }
 
@@ -35,7 +37,7 @@ function MakeSvgTag(w, h, xOff = 0, yOff = 0, attrs = null) {
 }
 
 /**
- * Makes a perfect regular polygon with verticies all lying on a circle.
+ * Makes a perfect regular polygon with vertices all lying on a circle.
  * @param {float} radius - Radius of the invisible circle (and the polygon).
  * @param {float} cx - x coordinate of center of polygon.
  * @param {float} cy - y coordinate of center of polygon.
@@ -88,7 +90,8 @@ function MakeArrow(rotation = 0, scale = 100, x = 50, y = 50, head = "triangle",
         "compass": [23, 92, "l27-84l27 84l-27-28.7z"],
         "concave-tri": [50, 6.5, "a102 102 0 0 1-22.8 34.4a79.7 79.7 0 0 1 17.3-6c5.5-1 5.5-1 11 0a82 82 0 0 1 17.5 6.1a97.8 97.8 0 0 1-23-34.5z"],
         "heart": [51.08, 29.9, "c0.45 0.56 1.11 1.28 1.67 1.74a8.71 8.71 0 0 0 14.14-5.19a7.8 7.8 0 0 0-0.08-3.62c-0.63-2.3-2.74-4.63-5-6.76c-1.08-1.02-2.12-1.97-3.14-2.91c-3.04-2.85-8.65-9.77-8.65-9.77s-5.6 6.92-8.65 9.76l-3.13 2.91c-2.26 2.14-4.38 4.47-5 6.77a7.8 7.8 0 0 0-0.08 3.62a8.71 8.71 0 0 0 14.14 5.19c0.62-0.51 1.19-1.1 1.68-1.73l1.05-1.33z"],
-        "leaf": [50, 3.65, "c-3.99 9.97-10.82 16.66-20.5 20.08c2.56 2.56 6.96 3.88 11.53 3.42c4.57-0.47 8.55-4.61 9.18-4.61c0.6 0 4.42 4.12 8.76 4.6c4.34 0.49 8.69-0.56 11.54-3.41c-9.69-3.43-16.52-10.11-20.51-20.08z"]
+        "leaf": [50, 3.65, "c-3.99 9.97-10.82 16.66-20.5 20.08c2.56 2.56 6.96 3.88 11.53 3.42c4.57-0.47 8.55-4.61 9.18-4.61c0.6 0 4.42 4.12 8.76 4.6c4.34 0.49 8.69-0.56 11.54-3.41c-9.69-3.43-16.52-10.11-20.51-20.08z"],
+        "center-triangle": [50, 20, "l30 60h-60z"]
     }
 
     const stems = {
@@ -131,4 +134,129 @@ function MakeArrow(rotation = 0, scale = 100, x = 50, y = 50, head = "triangle",
     if (stemexists) group.appendChild(arrowstem);
     if (headexists) group.appendChild(arrowhead);
     return group;
+}
+
+/**
+ * Represents a circular grid to be used in SVGs.
+ * All lengths and coordinates are based on the number of rows/columns.
+ */
+class CircularGrid {
+    #columns;
+    #rows;
+    #innerRadius;
+    #stripRadius;
+    #insideOut;
+    #goAntiClockwise;
+    #svgElement;
+
+    /**
+     * Returns an object with methods for drawing circular grids.
+     * The first column (0-indexed) meets the last column at the positive x half-axis from the centre of the circle.
+     * Access the grid SVG element itself through the svgElement property.
+     * Requires jquery.
+     * @param {Number} columns - number of columns going out from the centre of the circle.
+     * @param {Number} rows - number of rows going around the centre of the circle.
+     * @param {float} outerRadius - radius of the full grid.
+     * @param {float} innerRadius - radius of the circle of negative space inside the grid.
+     * @param {Dictionary} attrs - Attributes to set in the group element representing the grid. e.g. {class:"highlightable", fill:"#F00"}.
+     * @param {Boolean} insideOut - if true, take the first row (0-indexed) to be the one closest to the origin instead of farthest from it.
+     * @param {Boolean} goAntiClockwise - if true, columns go anti-clockwise. Otherwise, they go clockwise.
+     */
+    constructor(columns, rows, outerRadius = 100, innerRadius = 0, attrs = null, insideOut = false, goAntiClockwise = true) {
+        this.#columns = columns;
+        this.#rows = rows;
+        this.#innerRadius = innerRadius;
+        this.#stripRadius = outerRadius - innerRadius;
+        this.#insideOut = insideOut;
+        this.#goAntiClockwise = goAntiClockwise;
+        this.#svgElement = MakeSvgElem("g", attrs);
+    }
+
+    get svgElement() {
+        return this.#svgElement;
+    }
+
+    #transform(x, y) {
+        const r = this.#distanceFromOrigin(y);
+        const theta = this.#argument(x);
+        return `${r * Math.cos(theta)} ${-r * Math.sin(theta)}` // Negate y-coordinate to account for y going down in SVG units.
+    }
+
+    #distanceFromOrigin(y) {
+        return (this.#insideOut ? y / this.#rows : 1 - y / this.#rows) * this.#stripRadius + this.#innerRadius;
+    }
+
+    #argument(x) {
+        return Math.PI * 2 * (this.#goAntiClockwise ? x / this.#columns : 1 - x / this.#columns);
+    }
+
+    /**
+     * Draws a transformed rectangle onto the grid.
+     * @param {float} x - x-coordinate of the top-left corner of the rectangle.
+     * @param {float} y - y-coordinate of the top-left corner of the rectangle.
+     * @param {float} width - width of the rectangle.
+     * @param {float} height - height of the rectangle.
+     * @param {Dictionary} attrs - Attributes to set in the path element representing the cell. e.g. {class:"highlightable", fill:"#F00"}.
+     */
+    drawCell(x = 0, y = 0, width = 1, height = 1, attrs = null) {
+        const topLeft = this.#transform(x, y);
+        const topRight = this.#transform(x + width, y);
+        const bottomRight = this.#transform(x + width, y + height);
+        const bottomLeft = this.#transform(x, y + height);
+        const largeArcFlag = width > this.#columns / 2 ? 1 : 0;
+        const sweepFlag = this.#goAntiClockwise ? 0 : 1;
+        const outerRadius = this.#distanceFromOrigin(y);
+        const innerRadius = this.#distanceFromOrigin(y + height);
+        const outerArc = `A${outerRadius} ${outerRadius} 0 ${largeArcFlag} ${sweepFlag} ${topRight}`;
+        const innerArc = `A${innerRadius} ${innerRadius} 0 ${largeArcFlag} ${1 - sweepFlag} ${bottomLeft}`;
+        const d = `M${topLeft}${outerArc}L${bottomRight}${innerArc}z`;
+        const cell = MakeSvgElem("path", {...attrs, d });
+        this.#svgElement.append(cell);
+    }
+
+    /**
+     * Draws the inner circle boundary.
+     * @param {Dictionary} attrs - Attributes to set in the circle element. e.g. {class:"highlightable", fill:"#F00"}.
+     */
+    drawInnerCircle(attrs = { fill: "none", stroke: "#000", "stroke-width": "1" }) {
+        this.#svgElement.append(MakeSvgElem("circle", { ...attrs, r: this.#innerRadius }));
+    }
+
+    /**
+     * Draws the outer circle boundary.
+     * @param {Dictionary} attrs - Attributes to set in the circle element. e.g. {class:"highlightable", fill:"#F00"}.
+     */
+    drawOuterCircle(attrs = { fill: "none", stroke: "#000", "stroke-width": "1" }) {
+        this.#svgElement.append(MakeSvgElem("circle", { ...attrs, r: this.#innerRadius + this.#stripRadius }));
+    }
+
+    /**
+     * Draws a ring. Equivalent to a rectangular cell covering the full width of the grid.
+     * @param {float} outerRadius - outer radius of the ring.
+     * @param {float} innerRadius - inner radius of the ring. Set to undefined to draw a circle instead of a ring.
+     * @param {Dictionary} attrs - Attributes to set in the path element. e.g. {class:"highlightable", fill:"#F00"}.
+     */
+    drawRing(outerRadius, innerRadius = 0, attrs = { fill: "none", stroke: "#000", "stroke-width": "1" }) {
+        const circularArc = (radius) => {
+            const scaledRadius = this.#innerRadius + (radius / this.#rows) * this.#stripRadius;
+            return `M${scaledRadius} 0A${scaledRadius} ${scaledRadius} 0 1 1 ${-scaledRadius} 0A${scaledRadius} ${scaledRadius} 0 1 1 ${scaledRadius} 0`;
+        }
+        let d = circularArc(outerRadius);
+        if (innerRadius !== undefined)
+            d += circularArc(innerRadius);
+        this.#svgElement.append(MakeSvgElem("path", { ...attrs, d, "fill-rule": "evenodd" }));
+    }
+
+    /**
+     * @param {HTMLElement} elem - the element to be inserted.
+     * @param {float} x - x-coordinate of the element.
+     * @param {float} y - y-coordinate of the element.
+     */
+    insertElementAt(elem, x, y) {
+        const innerG = MakeSvgElem("g", { style: "transform: rotate(90deg)" });
+        const outerG = MakeSvgElem("g", { style: `transform: rotate(${-this.#argument(x)}rad) translate(${this.#distanceFromOrigin(y)}px, 0)` });
+        innerG.append(elem);
+        outerG.append(innerG);
+        this.#svgElement.append(outerG);
+    }
 }
