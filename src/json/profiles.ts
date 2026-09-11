@@ -7,8 +7,11 @@ import terp from "./profiles/Terp.json";
 import victoria from "./profiles/Victoria.json";
 import bones from "./profiles/Bones.json";
 import jessie from "./profiles/Jessie.json";
-import kylerAndVince from "./profiles/Kyler_and_Vince.json";
+import kyler from "./profiles/Kyler.json";
+//import kylerAndVince from "./profiles/Kyler_and_Vince.json";
 import lana from "./profiles/Lana.json";
+import matmat from "./profiles/Matmat.json"
+import myka from "./profiles/Myka.json"
 
 import centurion from "./profiles/Centurion.json";
 import praetorian from "./profiles/Praetorian.json";
@@ -177,6 +180,8 @@ const kylerAltManuals: Record<string, string> = {};
 const bonesAltManuals: Record<string, string> = {};
 const jessieAltManuals: Record<string, string> = {};
 const lanaAltManuals: Record<string, string> = {};
+const matmatAltManuals: Record<string, string> = {};
+const mykaAltManuals: Record<string, string> = {};
 
 const profiles: {
 	[key: string]: {
@@ -246,29 +251,41 @@ const profiles: {
 		altManuals: jessieAltManuals,
 		gradient: "from-purple-400 to-violet-500",
 	},
-	KylerAndVince: {
-		name: "Vincler",
-		profile: kylerAndVince as Profile,
+	Kyler: {
+		name: "Kyler",
+		profile: kyler as Profile,
 		altManuals: kylerAltManuals,
 		gradient: "from-violet-500 to-indigo-400",
+	},
+	Matmat: {
+		name: "Matmat",
+		profile: matmat as Profile,
+		altManuals: matmatAltManuals,
+		gradient: "from-indigo-400 to-indigo-500",
+	},
+	Myka: {
+		name: "Myka",
+		profile: myka as Profile,
+		altManuals: mykaAltManuals,
+		gradient: "from-indigo-500 to-indigo-600",
 	},
 	Centurion: {
 		name: "Centurion",
 		profile: centurion as Profile,
 		altManuals: {},
-		gradient: "from-gray-400 to-gray-500",
+		gradient: "from-gray-300 to-gray-400",
 	},
 	Praetorian: {
 		name: "Praetorian",
 		profile: praetorianPlusVanillas as Profile,
 		altManuals: {},
-		gradient: "from-gray-500 to-gray-600",
+		gradient: "from-gray-400 to-gray-500",
 	},
 	Vanillas: {
 		name: "Vanillas",
 		profile: vanillas as Profile,
 		altManuals: vanillasAltManuals,
-		gradient: "from-gray-600 to-gray-700",
+		gradient: "from-gray-500 to-gray-600",
 	},
 };
 
@@ -370,7 +387,7 @@ export const names = [
 	"Victoria",
 	"Crim",
 	"Terp",
-	"KylerAndVince",
+	"Kyler",
 	"Centurion",
 	"Bones",
 	"Jessie",

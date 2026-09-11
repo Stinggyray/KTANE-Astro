@@ -65,7 +65,7 @@ const MainPage = () => {
 							<button
 								onClick={() => setActiveUser(id)}
 								key={profile.name}
-								className={`hover:shadow-lg block px-3 w-30 text-black flex-1 py-1.5 font-semibold
+								className={`hover:shadow-lg cursor-pointer block px-3 min-w-30 text-black flex-1 py-1.5 font-semibold
 								text-center rounded-md bg-gradient-to-r ${profile.gradient}`}
 							>
 								{profile.name}
@@ -79,7 +79,7 @@ const MainPage = () => {
 							<button
 								onClick={() => setView("orderly")}
 								id="orderly"
-								className={`mt-2 py-1.5 rounded-md w-2/3 ${
+								className={`mt-2 py-1.5 rounded-md w-2/3 cursor-pointer ${
 									view === "orderly"
 										? "bg-green-400 text-black"
 										: "bg-gray-800"
@@ -90,7 +90,7 @@ const MainPage = () => {
 							<button
 								onClick={() => setView("compact")}
 								id="compact"
-								className={`mt-2 py-1.5 rounded-md w-2/3 ${
+								className={`mt-2 py-1.5 rounded-md w-2/3 cursor-pointer ${
 									view === "compact"
 										? "bg-green-400 text-black"
 										: "bg-gray-800"
@@ -104,7 +104,7 @@ const MainPage = () => {
 							<button
 								onClick={() => setOptimized(true)}
 								id="optimized"
-								className={`mt-2 py-1.5 rounded-md w-2/3 ${
+								className={`mt-2 py-1.5 rounded-md w-2/3 cursor-pointer ${
 									optimized
 										? "bg-green-400 text-black"
 										: "bg-gray-800"
@@ -115,7 +115,7 @@ const MainPage = () => {
 							<button
 								onClick={() => setOptimized(false)}
 								id="original"
-								className={`mt-2 py-1.5 rounded-md w-2/3 ${
+								className={`mt-2 py-1.5 rounded-md w-2/3 cursor-pointer ${
 									!optimized
 										? "bg-green-400 text-black"
 										: "bg-gray-800"
@@ -129,7 +129,7 @@ const MainPage = () => {
 							<button
 								onClick={() => setLinksInNewTab(true)}
 								id="optimized"
-								className={`mt-2 py-1.5 rounded-md w-2/3 ${
+								className={`mt-2 py-1.5 rounded-md w-2/3 cursor-pointer ${
 									linksInNewTab
 										? "bg-green-400 text-black"
 										: "bg-gray-800"
@@ -140,7 +140,7 @@ const MainPage = () => {
 							<button
 								onClick={() => setLinksInNewTab(false)}
 								id="original"
-								className={`mt-2 py-1.5 rounded-md w-2/3 ${
+								className={`mt-2 py-1.5 rounded-md w-2/3 cursor-pointer ${
 									!linksInNewTab
 										? "bg-green-400 text-black"
 										: "bg-gray-800"

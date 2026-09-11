@@ -10,7 +10,6 @@
     "DiscoloredSquaresModule",
     "EnglishTest",
     "FaultySink",
-    "FestivePianoKeys",
     "graffitiNumbers",
     "guitarChords",
     "hexabutton",
@@ -198,7 +197,8 @@
     "modernCipher",
     "mortalKombat",
     "GameOfLifeCruel",
-    "GameOfLifeSimple"
+    "GameOfLifeSimple",
+    "FestivePianoKeys"
   ],
   "Operation": 0
 }
