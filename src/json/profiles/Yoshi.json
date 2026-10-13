@@ -3,7 +3,6 @@
     "AdjacentLettersModule_Rus",
     "BattleshipModule",
     "booleanVennModule",
-    "chordProgressions",
     "CruelPianoKeys",
     "DecoloredSquaresModule",
     "TheDigitModule",
@@ -198,7 +197,8 @@
     "mortalKombat",
     "GameOfLifeCruel",
     "GameOfLifeSimple",
-    "FestivePianoKeys"
+    "FestivePianoKeys",
+    "chordProgressions"
   ],
   "Operation": 0
 }
